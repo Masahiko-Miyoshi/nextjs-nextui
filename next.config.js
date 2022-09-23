@@ -7,7 +7,7 @@
 // module.exports = nextConfig
 
 
-images.unoptimized = true;
+
 const plugins = require('next-compose-plugins');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
