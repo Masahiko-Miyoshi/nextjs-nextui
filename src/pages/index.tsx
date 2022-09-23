@@ -79,7 +79,7 @@ const Home: NextPage = () => {
             href="https://nextjs.org"
             css={{ textGradient: "45deg, $purple500 -20%, $pink500 100%" }}
           >
-            Next.js2!
+            Next.js!
           </Link>
  
         </Text>
