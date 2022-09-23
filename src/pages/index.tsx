@@ -62,7 +62,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Text b> The current theme is:</Text>
-      <Text size={20} color="Yellow" b > {type} </Text>
+      <Text size={21} color="Yellow" b > {type} </Text>
       <Spacer y={0.1}/>
       <Switch shadow color="warning"
         checked={isDark}
