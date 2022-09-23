@@ -71,7 +71,7 @@ const Home: NextPage = () => {
       />
       <Spacer y={0.1} />
 
-    <Input placeholder="Next UI" />;
+    <Input placeholder="Next UI2" />;
       <main className={styles.main}>
         <Text size={60} h1 b>
           Welcome to{" "}
