@@ -69,7 +69,7 @@ const Home: NextPage = () => {
         onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
         css ={{paddingLeft:"70px"}}
       />
-      <Spacer y={0.2} />
+      <Spacer y={0.1} />
 
     <Input placeholder="Next UI" />;
       <main className={styles.main}>
