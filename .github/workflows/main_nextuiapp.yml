@@ -10,7 +10,7 @@ name: Build and deploy Node.js app to Azure Web App - NextUiApp
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -63,6 +63,6 @@ jobs:
         with:
           app-name: 'NextUiApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1F2A868D1A6F49C69D1BC81955835C56 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3E52ECEDD6B948AAA5866650DDFD9C1A }}
           #package: .
           package: release.zip
