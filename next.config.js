@@ -7,8 +7,9 @@ const nextConfig = {
   trailingSlash: true,
   experimental: {
     images: {
-        unoptimized: true
-    }
+      loader: 'akamai',
+      path: '',
+    },
 }
 }
 
