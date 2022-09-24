@@ -26,19 +26,12 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-            
-          yarn config set network-timeout 1000000
-  
-  # Add 2022.4.8 By MM
-      - name: Zip artifact for deployment
-        run: zip -r release.zip * .vscode .github .next .eslintrc.json .deployment -x yarn.lock
-  # 
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          #path: .
-          path: release.zip
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,6 +52,5 @@ jobs:
         with:
           app-name: 'NextUiApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3E52ECEDD6B948AAA5866650DDFD9C1A }}
-          #package: .
-          package: release.zip
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4F50C26232954E779E13635DD5F64E44 }}
+          package: .
