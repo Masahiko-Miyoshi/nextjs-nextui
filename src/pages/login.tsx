@@ -3,7 +3,7 @@ import React  from 'react'
 import { Text, Input, Spacer } from "@nextui-org/react";
 
 
-export const PasswordInput = () => {
+const PasswordInput = () => {
   return (
     <>
         <Text> ユーザ名とパスワードを入力してください</Text>
@@ -16,3 +16,6 @@ export const PasswordInput = () => {
     </>
   );
 }
+
+export default PasswordInput;
+
