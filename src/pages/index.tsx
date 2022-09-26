@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useTheme as useNextTheme } from 'next-themes'
 import { useTheme } from '@nextui-org/react'
+import { PasswordInput} from './login'
 // import { createStitches } from '@stitches/react';
 
 import {
@@ -69,9 +70,10 @@ const Home: NextPage = () => {
         onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
         css ={{paddingLeft:"70px"}}
       />
-      <Spacer y={0.1} />
+      <Spacer y={1} />
 
-    <Input placeholder="Next UI2" />;
+      <PasswordInput />
+
       <main className={styles.main}>
         <Text size={60} h1 b>
           Welcome to{" "}
