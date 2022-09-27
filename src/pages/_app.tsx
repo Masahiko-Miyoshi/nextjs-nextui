@@ -7,6 +7,7 @@ import { createTheme, NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import PasswordInput from './login';
 import Home from "./index";
+import {Header} from "@/component/app/Header";
 
 
 type NextPageWithLayout = NextPage & {
