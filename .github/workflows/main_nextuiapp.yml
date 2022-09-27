@@ -1,12 +1,12 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - NextUiApp
+name: Build and deploy Node.js app to Azure Web App - NextjsTsApp
 
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -26,12 +26,23 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+            
+          yarn config set network-timeout 1000000
+  #Add 2022.9.27 By MM
+      - name: delete node_modules dir
+        run: rm -rf node_modules
+  #
 
+  # Add 2022.4.8 By MM
+      - name: Zip artifact for deployment
+        run: zip -r release.zip * .vscode .github .next .eslintrc.json .deployment -x yarn.lock
+  # 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          #path: .
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,7 +61,9 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'NextUiApp'
+          app-name: 'NextjsTsApp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4F50C26232954E779E13635DD5F64E44 }}
-          package: .
+          #package: .
+          package: release.zip
+

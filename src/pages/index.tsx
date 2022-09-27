@@ -51,10 +51,11 @@ const LinkCard = ( props:LinkCardProops ) => {
 
 
 const Home: NextPage = () => {
-
+  
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
-  return (
+
+   return (
     <div className={styles.container}>
       <Head>
         <title>NextUI | Create Next App</title>
@@ -72,7 +73,6 @@ const Home: NextPage = () => {
       />
       <Spacer y={1} />
 
-      <PasswordInput />
 
       <main className={styles.main}>
         <Text size={60} h1 b>

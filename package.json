@@ -5,13 +5,15 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start2": "next start",
+    "start": "node_modules/next/dist/bin/next start",
     "export": "next export",
     "lint": "next lint"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.3.1",
     "@nextui-org/react": "^1.0.0-beta.10",
+    "canvas-confetti": "^1.5.1",
     "next": "12.3.1",
     "next-compose-plugins": "^2.2.1",
     "next-themes": "^0.2.1",
@@ -19,6 +21,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.4.3",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
