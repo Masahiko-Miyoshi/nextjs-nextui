@@ -7,7 +7,6 @@ import { createTheme, NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import PasswordInput from './login';
 import Home from "./index";
-import { listeners } from 'process';
 
 
 type NextPageWithLayout = NextPage & {
@@ -68,9 +67,10 @@ const DefaultLayout = ({ page }: Props) => {
   return(
   <div className="global-layout">
     <PasswordInput />
+    <Header className="global-layout__header" show={isActive} />
     <Home />
-    {/* <Header className="global-layout__header" show={isActive} />
-    <Contents className="global-layout__contents">{page}</Contents> */}
+    
+    {/* <Contents className="global-layout__contents">{page}</Contents> */}
   </div>
   )
 }
