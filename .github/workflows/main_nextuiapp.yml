@@ -29,8 +29,8 @@ jobs:
             
           yarn config set network-timeout 1000000
   #Add 2022.9.27 By MM
-      - name: delete node_modules dir
-        run: rm -rf node_modules
+  #    - name: delete node_modules dir
+   #     run: rm -rf node_modules
   #
 
   # Add 2022.4.8 By MM
