@@ -1,22 +1,21 @@
 import React from 'react';
 
 type Props = {
+    children: React.ReactNode;
     className?: string;
-    isShow?: boolean;
+    isShow:boolean;
   };
   
-
-
-
-export const Header: React.FC<Props> = ({ className,isShow=true }) => {
-   
-  
+  export const Contents: React.FC<Props> = ({ children, className, isShow }) => {
     if(!isShow){
       return null;
     }
     return (
       <div className={className} >
-        aaa
+        
+          {children}
+        
       </div>
     );
   };
+  

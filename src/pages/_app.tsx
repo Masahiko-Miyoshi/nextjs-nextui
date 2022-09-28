@@ -6,8 +6,12 @@ import type { AppProps } from 'next/app';
 import { createTheme, NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import PasswordInput from './login';
-import Home from "./index";
+// import Home from "./index";
 import {Header} from "@/component/app/Header";
+import {Contents} from "@/component/app/Contents";
+import {getCurrentUser,isLoginUser} from "@/users/currentUser";
+
+import {useHeaderScroll} from "@/hooks/useHeaderScroll";
 
 
 type NextPageWithLayout = NextPage & {
@@ -60,18 +64,21 @@ type Props = {
   page: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 };
 
+let counter = 0;
 
 const DefaultLayout = ({ page }: Props) => {
-  // const  isActive  = useHeaderScroll();
-  const isActive = true;
-  console.log("DEBUG ******* Default layout! *********");
-  return(
+  const  isHeaderActive  = useHeaderScroll();
+  const isLogin = isLoginUser();
+
+
+  console.log("DEBUG ******* Default layout! *********%d",counter);
+
+ 
+  return (
   <div className="global-layout">
-    <PasswordInput />
-    <Header className="global-layout__header" show={isActive} />
-    <Home />
-    
-    {/* <Contents className="global-layout__contents">{page}</Contents> */}
+    <PasswordInput isShow = {!isLogin}/>
+    <Header className="global-layout__header" isShow={isHeaderActive && isLogin} />
+    <Contents className="global-layout__contents" isShow={isLogin}>{page}</Contents>
   </div>
   )
 }
