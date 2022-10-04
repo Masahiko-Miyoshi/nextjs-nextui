@@ -1,59 +1,25 @@
-import type { NextPage } from 'next'
+import type { NextPage,GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { useTheme as useNextTheme } from 'next-themes'
-import { useTheme } from '@nextui-org/react'
-import  PasswordInput from './login'
-// import { createStitches } from '@stitches/react';
+import styles from '@/styles/Home.module.css'
+import {LinkCard} from '@/component/app/LinkCard';
 
 import {
-  Container,
   Grid,
   Card,
   Row,
-  Button,
-  Input,
-  Spacer,
   Text,
-  Link,
-  Switch,
 } from '@nextui-org/react';
 
 
-interface LinkCardProops {
-  url:string;
-  title:string; 
-  text:string;
-}
 
-// リンクカード
-const LinkCard = ( props:LinkCardProops ) => {
-  return (
-    <>
-      <Link href={props.url}>
-
-        <Card isHoverable isPressable variant = "bordered" css={{ mw: "400px" }}>
-          <Card.Body>
-            <Text
-              css={{ textGradient: "45deg, $blue500 -30%, $red500 100%" }}
-              h2
-            >{`${props.title} ->`}</Text>
-            <Text >{props.text}</Text>
-          </Card.Body>
-        </Card>
-      </Link>
-    </>
-  )
+type Props = {
+  dummy:string;
 }
 
 
-
-
-const Home: NextPage = () => {
+const Home: NextPage<Props> = (props) => {
   
-  const { setTheme } = useNextTheme();
-  const { isDark, type } = useTheme();
 
    return (
     <div className={styles.container}>
@@ -63,27 +29,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Text b> The current theme is:</Text>
-      <Text size={20} color="Yellow" b > {type} </Text>
-      <Spacer y={0.1}/>
-      <Switch shadow color="warning"
-        checked={isDark}
-        onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
-        css ={{paddingLeft:"70px"}}
-      />
-      <Spacer y={1} />
-
-
       <main className={styles.main}>
-        <Text size={60} h1 b>
-          Welcome to{" "}
-          <Link
-            href="https://nextjs.org"
-            css={{ textGradient: "45deg, $purple500 -20%, $pink500 100%" }}
-          >
-            Next.js!
-          </Link>
- 
+        <Text size={60} h1 b css={{ textGradient: "45deg, $purple500 -20%, $pink500 100%" }}>
+          Welcome to IoT system !
         </Text>
 
         <Row justify="center" align="center" gap={2}>
@@ -132,6 +80,63 @@ const Home: NextPage = () => {
             text="Instantly deploy your Next.js site to a public URL with Vercel."
           />
         </Grid>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://nextjs.org/docs"
+            title="Documentation"
+            text="Find in-depth information about Next.js features and API."
+          />
+        </Grid>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://nextjs.org/learn"
+            title="Learn"
+            text="Learn about Next.js in an interactive course with quizzes!"
+          />
+        </Grid>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://github.com/vercel/next.js/tree/canary/exampless"
+            title="Examples"
+            text="Discover and deploy boilerplate example Next.js projects."
+          />
+        </Grid>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            title="Deploy"
+            text="Instantly deploy your Next.js site to a public URL with Vercel."
+          />
+        </Grid>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://nextjs.org/docs"
+            title="Documentation"
+            text="Find in-depth information about Next.js features and API."
+          />
+        </Grid>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://nextjs.org/learn"
+            title="Learn"
+            text="Learn about Next.js in an interactive course with quizzes!"
+          />
+        </Grid>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://github.com/vercel/next.js/tree/canary/exampless"
+            title="Examples"
+            text="Discover and deploy boilerplate example Next.js projects."
+          />
+        </Grid>
+        <section id="here">...</section>
+        <Grid xs={12} md={6} justify="center">
+          <LinkCard
+            url="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            title="Deploy"
+            text="Instantly deploy your Next.js site to a public URL with Vercel."
+          />
+        </Grid>
       </Grid.Container>
       </main>
       <footer className={styles.footer}>
@@ -149,6 +154,17 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  console.log("Home ISR running !!!\n");
+  return {
+    props: {
+      dummy: "dummy",
+    },
+    // revalidate: 1,
+  };
+};
 
 
 export default Home

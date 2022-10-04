@@ -1,6 +1,6 @@
 import type {User} from '@/users/currentUser';
 
-let entryUsers:User[] =[
+var entryUsers:User[] =[
     {userName:"miyoshi", password:"otsuka",userLevel:1   },
 ];
 
@@ -27,7 +27,6 @@ export const isAcceptable = (userName:string, password:string) =>{
         console.log("name:%s pss:%s name2:%s pass2:%s",userName,password,item.userName,item.password);
         
         if((item.userName === userName) && (item.password === password)){
-            console.log("OK3");
             return item;
         }
     }

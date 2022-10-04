@@ -1,17 +1,16 @@
-import React  from 'react';
+import React,{useEffect,useState}  from 'react';
+import { useRouter } from 'next/router';
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
-import '../styles/globals.css';
+import '@/styles/globals.css';
+import styles from '../styles/Home.module.css'
 import type { AppProps } from 'next/app';
 import { createTheme, NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import PasswordInput from './login';
-// import Home from "./index";
 import {Header} from "@/component/app/Header";
 import {Contents} from "@/component/app/Contents";
-import {getCurrentUser,isLoginUser} from "@/users/currentUser";
-
-import {useHeaderScroll} from "@/hooks/useHeaderScroll";
+import {isLoginUser} from "@/users/currentUser";
+import {Layout} from "@/component/app/Layout";
 
 
 type NextPageWithLayout = NextPage & {
@@ -39,53 +38,55 @@ const darkTheme = createTheme({
 
 
 
-
-
-// function MyApp({ Component, pageProps }: AppProps) {
-//   return (
-//     <NextThemesProvider
-//       defaultTheme="system"
-//       attribute="class"
-//       value={{
-//         light: lightTheme.className,
-//         dark: darkTheme.className
-//       }}
-//     >
-//       <NextUIProvider>
-//         <PasswordInput  />
-//         <Component {...pageProps} />
-//       </NextUIProvider>
-//     </NextThemesProvider>
-//   );
-// }
-
-
 type Props = {
   page: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 };
 
-let counter = 0;
 
 const DefaultLayout = ({ page }: Props) => {
-  const  isHeaderActive  = useHeaderScroll();
-  const isLogin = isLoginUser();
-
-
-  console.log("DEBUG ******* Default layout! *********%d",counter);
-
  
+  console.log("Default layout.. !")
   return (
-  <div className="global-layout">
-    <PasswordInput isShow = {!isLogin}/>
-    <Header className="global-layout__header" isShow={isHeaderActive && isLogin} />
-    <Contents className="global-layout__contents" isShow={isLogin}>{page}</Contents>
-  </div>
+  <Layout>
+    <Header />
+    <Contents >{page}</Contents>
+  </Layout>
   )
 }
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout =
-    Component.getLayout ?? ((page) => <DefaultLayout page={page} />);
+
+
+function MyApp({ Component, pageProps,router }: AppPropsWithLayout) {
+
+  console.log("My app .... !")
+  const getLayout =  Component.getLayout ?? ((page) => <DefaultLayout page={page} />);
+
+  const [isLogin, setIsLogin] = useState(false);
+  const routerToLogin = useRouter();
+
+
+  useEffect(()=>{
+    console.log("Inside hook");
+    if(!isLoginUser()){
+      console.log("Log in!");
+      routerToLogin.push("./login");
+      console.log(router.pathname);
+      if(router.pathname === "/login"){
+        setIsLogin(true);
+      }
+    }
+    else{
+      setIsLogin(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[router.pathname]);
+  
+  //ちらつき防止
+  if(!isLogin){
+    console.log("Exit default.")
+    return null;
+  }
+  //
 
   return (
     <NextThemesProvider
@@ -102,7 +103,5 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     </NextThemesProvider>
   );
 }
-
-
 
 export default MyApp

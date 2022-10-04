@@ -4,5 +4,15 @@
         ".vscode{,/**}"
     ],
     "appService.defaultWebAppToDeploy": "/subscriptions/802e2636-a6d1-47bd-aa58-0af8952667ed/AppServices/subscriptions/802e2636-a6d1-47bd-aa58-0af8952667ed/resourceGroups/WebAppResourceGroup/providers/Microsoft.Web/sites/NextUiApp",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+
+    "highlight-matching-tag.highlightFromContent": true,
+    "highlight-matching-tag.highlightSelfClosing": true,
+    "highlight-matching-tag.customEmptyElements": null,
+    "workbench.colorCustomizations": {
+        "scrollbar.shadow": "#0f0",
+        "scrollbarSlider.activeBackground": "#0ff",
+        "scrollbarSlider.background": "#f0f",
+        "scrollbarSlider.hoverBackground": "#000"
+      }
 }

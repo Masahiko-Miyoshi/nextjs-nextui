@@ -1,21 +1,15 @@
 import React from 'react';
+import styles from '@/styles/Home.module.css'
 
 type Props = {
-    children: React.ReactNode;
-    className?: string;
-    isShow:boolean;
-  };
-  
-  export const Contents: React.FC<Props> = ({ children, className, isShow }) => {
-    if(!isShow){
-      return null;
-    }
-    return (
-      <div className={className} >
-        
-          {children}
-        
-      </div>
-    );
-  };
-  
+  children: React.ReactNode;
+//   className?: string;
+};
+
+export const Contents: React.FC<Props> = ({ children }) => {
+  return (
+    <div className={styles.contents}>
+        {children}
+    </div>
+  );
+};
