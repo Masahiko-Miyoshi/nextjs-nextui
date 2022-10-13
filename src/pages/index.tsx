@@ -9,6 +9,7 @@ import {
   Card,
   Row,
   Text,
+  Col,
 } from '@nextui-org/react';
 
 
@@ -30,43 +31,34 @@ const Home: NextPage<Props> = (props) => {
       </Head>
 
       <main className={styles.main}>
-        <Text size={60} h1 b css={{ textGradient: "45deg, $purple500 -20%, $pink500 100%" }}>
+        <Text size={60} h1 b css={{ textGradient: "180deg, $purple500 20%, $pink500 100%" }}>
           Welcome to IoT system !
         </Text>
 
-        <Row justify="center" align="center" gap={2}>
-          <Text b size={25}>
-            Get started by editing
-          </Text>
-          <Card
-            isHoverable
-            color="gradient"
-            css={{ maxW: 150, alignItems: "center" }}
-          >
-            pages/index.js
-          </Card>
-        </Row>
+        
       <Grid.Container
         gap={2}
         justify="center"
         alignItems="center"
-        css={{ maxW: 800, marginTop: 100 }}
+        css={{ maxW:1200, marginTop:50 }}
       >
-        <Grid xs={12} md={6} justify="center">
+
+        
+        <Grid xs={12} md={4} justify="center">
           <LinkCard
             url="https://nextjs.org/docs"
             title="Documentation"
             text="Find in-depth information about Next.js features and API."
           />
         </Grid>
-        <Grid xs={12} md={6} justify="center">
+        <Grid xs={12} md={4} justify="center">
           <LinkCard
             url="https://nextjs.org/learn"
             title="Learn"
             text="Learn about Next.js in an interactive course with quizzes!"
           />
         </Grid>
-        <Grid xs={12} md={6} justify="center">
+        <Grid xs={12} md={4} justify="center">
           <LinkCard
             url="https://github.com/vercel/next.js/tree/canary/exampless"
             title="Examples"
@@ -137,6 +129,11 @@ const Home: NextPage<Props> = (props) => {
             text="Instantly deploy your Next.js site to a public URL with Vercel."
           />
         </Grid>
+
+        <iframe src='https://webchat.botframework.com/embed/dotnetbot-bot?s=FaRy1tSDNy0.WpPB4f5c0u0RsvQa-2H9RIfAF0DeUa3SJcl1uCYB89M' 
+         width="1000" height="450" ></iframe>
+
+
       </Grid.Container>
       </main>
       <footer className={styles.footer}>
