@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const ChevronDownIcon = ({fill, size , width = 16, height = 16, ...props}) => {
+const ChevronDownIcon = ({fill , size , width = 16, height = 16, ...props}:{fill?:string, size?:number, width?:number, height?:number}) => {
   return (
     <svg
       fill="none"
@@ -26,7 +26,7 @@ const ChevronDownIcon = ({fill, size , width = 16, height = 16, ...props}) => {
   );
 };
 
-const TagUserIcon = ({fill, size, width = 24, height = 24, ...props}) => {
+const TagUserIcon = ({fill, size, width = 24, height = 24, ...props}:{fill?:string, size?:number, width?:number, height?:number}) => {
   return (
     <svg
       fill="none"
@@ -55,7 +55,7 @@ const TagUserIcon = ({fill, size, width = 24, height = 24, ...props}) => {
   );
 };
 
-const ServerIcon = ({fill, size, width = 24, height = 24, ...props}) => {
+const ServerIcon = ({fill, size, width = 24, height = 24, ...props}:{fill?:string, size?:number, width?:number, height?:number}) => {
   return (
     <svg
       fill="none"
@@ -76,7 +76,7 @@ const ServerIcon = ({fill, size, width = 24, height = 24, ...props}) => {
   );
 };
 
-const FlashIcon = ({fill, size, width = 24, height = 24, ...props}) => {
+const FlashIcon = ({fill, size, width = 24, height = 24, ...props}:{fill?:string, size?:number, width?:number, height?:number}) => {
   return (
     <svg
       fill="none"
@@ -98,7 +98,7 @@ const FlashIcon = ({fill, size, width = 24, height = 24, ...props}) => {
   );
 };
 
-const ActivityIcon = ({fill, size, width = 24, height = 24, ...props}) => {
+const ActivityIcon = ({fill, size, width = 24, height = 24, ...props}:{fill?:string, size?:number, width?:number, height?:number}) => {
   return (
     <svg
       data-name="Iconly/Curved/Activity"
@@ -124,7 +124,7 @@ const ActivityIcon = ({fill, size, width = 24, height = 24, ...props}) => {
   );
 };
 
-const ScaleIcon = ({fill, size, width = 24, height = 24, ...props}) => {
+const ScaleIcon = ({fill, size, width = 24, height = 24, ...props}:{fill?:string, size?:number, width?:number, height?:number}) => {
   return (
     <svg
       fill="none"

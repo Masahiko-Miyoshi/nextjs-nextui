@@ -95,7 +95,7 @@ const DropdownChildItem:React.FC<DropdownChildItemProps> = (props) =>{
 
 type NavbarItemProps = {
   item:HeaderMenuProps;
-  isDark:boolean;
+  isDark:boolean|undefined;
 }
 
 
