@@ -30,9 +30,6 @@ type DropdownItem = {
 
 export type HeaderMenuProps = NavItem | DropdownItem;
 
-type Props = {
-  headerMenuProps: HeaderMenuProps[];
-}
 
 
 const handleAction = (key:Key) : void =>{
@@ -104,15 +101,15 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
   
   
   if(item.itemType === "nav"){
-    return <Navbar.Link color={isDark?"warning":"inherit"} href="#">{item.title}</Navbar.Link>
+    return <Navbar.Link  color={isDark?"warning":"inherit"} href="#"  >{item.title}</Navbar.Link>
   }
   else if(item.itemType==="dropdown"){
     return(
       <Dropdown isBordered>
-        <Navbar.Item>
+        <Navbar.Item  >
           <Dropdown.Button
             color= {isDark ? 'warning' :'default'}
-            // auto
+            auto
             size={"xs"}
             light
             css={{
@@ -138,12 +135,15 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
 }
 
 
+type Props = {
+  headerMenuProps: HeaderMenuProps[];
+}
 
 export const HeaderMenu :React.FC<Props> = (props) =>{
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
   return (
-    <Navbar  shouldHideOnScroll  isBordered variant={"sticky"} maxWidth={"xl"} css={{opacity: "0.9", backgroundColor:"white" }}>
+    <Navbar   shouldHideOnScroll  isBordered variant={"sticky"} maxWidth={"xl"} css={{opacity: "0.9",backgroundColor:"#476bef"}}>
       <Navbar.Toggle showIn="xs" hideIn="sm" />
       <Navbar.Brand
           css={{
@@ -152,16 +152,16 @@ export const HeaderMenu :React.FC<Props> = (props) =>{
               },
           }}
       >
-       <Grid.Container gap={0} justify="center" >
-          <Grid xl={8} xs={8}>
+       <Grid.Container gap={0} justify="center"  >
+          <Grid xl={6} xs={6}>
             <Logo/>
           </Grid>
-          <Grid xl={4} xs={4}>
+          <Grid xl={6} xs={6}>
             <Text b 
-             size={16}
+             size={12}
              css={{
               textGradient: "45deg, $blue600 -20%, $pink600 50%",
-               mt:38,
+               mt:40,
              }}
              weight="bold"
              hideIn="sm">
@@ -174,10 +174,10 @@ export const HeaderMenu :React.FC<Props> = (props) =>{
        </Grid.Container>
         
       </Navbar.Brand>
-      <Navbar.Content enableCursorHighlight activeColor="secondary" hideIn="xs" variant="highlight-rounded">
+      <Navbar.Content   enableCursorHighlight activeColor="secondary" hideIn="xs" variant="highlight-rounded">
            
         {props.headerMenuProps.map((item,index) =>{
-            return <NavbarItem key={index}  item={item} isDark={isDark} />
+            return <NavbarItem  key={index}  item={item} isDark={isDark} />
          })
         }
 

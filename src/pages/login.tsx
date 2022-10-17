@@ -49,16 +49,16 @@ const PasswordInput = (props?:Props) =>  {
  
   return (
     <Card css={{ mw: "600px",mx:"auto",mt:"150px",}} variant={'shadow'}>
-        <Card.Header>
+        <Card.Header css={{backgroundColor:"#000000"}}>
           <Text css={{ textGradient: "45deg, $blue500 -30%, $red500 100%" }} size={20} weight="bold">Input user name and password.</Text>
         </Card.Header>
         <Card.Divider />
         <Spacer y={1.6} />
         <Card.Body css={{ py: "$10" }}>
           
-            <Input clearable bordered labelPlaceholder="User name" initialValue={userName} onChange = {handleUsername}/>
+            <Input clearable bordered label="User name"  initialValue={userName} onChange = {handleUsername}/>
             <Spacer y={1.6} />
-            <Input.Password clearable bordered labelPlaceholder="Password" initialValue={password} onChange ={handlePassword}/>
+            <Input.Password clearable bordered label="Password"  initialValue={password} onChange ={handlePassword}/>
             <Spacer y={1.6} />
             
         </Card.Body>

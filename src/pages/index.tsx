@@ -3,13 +3,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import {LinkCard} from '@/component/app/LinkCard';
-
+import type {AreaGraphProps} from '@/component/app/LinkCard';
+import {LinkCardWithPie} from '@/component/app/LinkCardWithPie';
+import type {PieGraphProps} from '@/component/app/LinkCardWithPie';
 import {
   Grid,
-  Card,
-  Row,
   Text,
-  Col,
+  Spacer,
 } from '@nextui-org/react';
 
 
@@ -17,6 +17,145 @@ import {
 type Props = {
   dummy:string;
 }
+
+
+const CurerntTests = () =>{
+  const areaGraphProps:AreaGraphProps = {
+    dummy: "sss",
+    data : [
+      {
+        time: '8:00',
+        value1: 10,
+        value2: 3,
+      },
+      {
+        time: '9:00',
+        value1: 210,
+        value2: 128,
+      },
+      {
+        time: '10:00',
+        value1: 527,
+        value2: 231,
+      },
+      {
+        time: '11:00',
+        value1: 770,
+        value2: 345,
+      },
+      {
+        time: '12:00',
+        value1: 690,
+        value2: 454,
+      },
+      {
+        time: '13:00',
+        value1: 200,
+        value2: 123,
+      },
+      {
+        time: '14:00',
+        value1: 150,
+        value2: 74,
+      },
+    ],
+  }
+  return(
+      <LinkCard url="https://nextjs.org/docs" title="現在の総検査数" 
+      areaGraphProps={areaGraphProps}
+      footerText="クリックすると詳細情報を確認できます"
+      />
+  )
+}
+
+
+
+const CurerntError = () =>{
+  const areaGraphProps:AreaGraphProps = {
+    dummy: "sss",
+    data : [
+      {
+        time: '8:00',
+        value1: 1,
+        value2: 3,
+      },
+      {
+        time: '9:00',
+        value1: 2,
+        value2: 1,
+      },
+      {
+        time: '10:00',
+        value1: 5,
+        value2: 2,
+      },
+      {
+        time: '11:00',
+        value1: 7,
+        value2: 3,
+      },
+      {
+        time: '12:00',
+        value1: 6,
+        value2: 4,
+      },
+      {
+        time: '13:00',
+        value1: 2,
+        value2: 1,
+      },
+      {
+        time: '14:00',
+        value1: 10,
+        value2: 7,
+      },
+    ],
+  }
+  return(
+      <LinkCard  url="https://nextjs.org/docs" title="現在の総エラー数" 
+      areaGraphProps={areaGraphProps}
+      footerText="クリックすると詳細情報を確認できます"
+      />
+  )
+}
+
+
+const BigUser = () =>{
+  const pieGraphProps:PieGraphProps = {
+   
+    data : [
+      {
+        name: '大阪病院',
+        value: 112342,
+      },
+      {
+        name: '東京病院',
+        value: 122999,
+      },
+      {
+        name: '北海道病院',
+        value: 122435,
+      },
+      {
+        name: '愛知病院',
+        value: 133313,
+      },
+      {
+        name: '福岡病院',
+        value: 23431,
+      },
+      
+    ],
+    pieType:"donuts"
+  }
+  return(
+      <LinkCardWithPie   url="https://nextjs.org/docs" title="ビッグユーザー" 
+      pieGraphProps={pieGraphProps}
+      footerText="クリックすると詳細情報を確認できます"
+      />
+  )
+}
+
 
 
 const Home: NextPage<Props> = (props) => {
@@ -40,99 +179,24 @@ const Home: NextPage<Props> = (props) => {
         gap={2}
         justify="center"
         alignItems="center"
-        css={{ maxW:1200, marginTop:50 }}
+        css={{ maxW:2000, marginTop:50 }}
       >
-
+        <Grid xs={12} md={6} justify="center">
+          <CurerntTests/>
+        </Grid>
+        <Grid xs={12} md={6}  justify="center">
+          <CurerntError/>
+        </Grid>
         
-        <Grid xs={12} md={4} justify="center">
-          <LinkCard
-            url="https://nextjs.org/docs"
-            title="Documentation"
-            text="Find in-depth information about Next.js features and API."
-          />
+        <Grid xs={12} md={12} justify="center">
+          <BigUser/>
         </Grid>
-        <Grid xs={12} md={4} justify="center">
-          <LinkCard
-            url="https://nextjs.org/learn"
-            title="Learn"
-            text="Learn about Next.js in an interactive course with quizzes!"
-          />
-        </Grid>
-        <Grid xs={12} md={4} justify="center">
-          <LinkCard
-            url="https://github.com/vercel/next.js/tree/canary/exampless"
-            title="Examples"
-            text="Discover and deploy boilerplate example Next.js projects."
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            title="Deploy"
-            text="Instantly deploy your Next.js site to a public URL with Vercel."
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://nextjs.org/docs"
-            title="Documentation"
-            text="Find in-depth information about Next.js features and API."
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://nextjs.org/learn"
-            title="Learn"
-            text="Learn about Next.js in an interactive course with quizzes!"
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://github.com/vercel/next.js/tree/canary/exampless"
-            title="Examples"
-            text="Discover and deploy boilerplate example Next.js projects."
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            title="Deploy"
-            text="Instantly deploy your Next.js site to a public URL with Vercel."
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://nextjs.org/docs"
-            title="Documentation"
-            text="Find in-depth information about Next.js features and API."
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://nextjs.org/learn"
-            title="Learn"
-            text="Learn about Next.js in an interactive course with quizzes!"
-          />
-        </Grid>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://github.com/vercel/next.js/tree/canary/exampless"
-            title="Examples"
-            text="Discover and deploy boilerplate example Next.js projects."
-          />
-        </Grid>
-        <section id="here">...</section>
-        <Grid xs={12} md={6} justify="center">
-          <LinkCard
-            url="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            title="Deploy"
-            text="Instantly deploy your Next.js site to a public URL with Vercel."
-          />
-        </Grid>
+        <Spacer y={1}/>
+        <Grid xs={12} md={12} justify="center">
 
-        <iframe src='https://webchat.botframework.com/embed/dotnetbot-bot?s=FaRy1tSDNy0.WpPB4f5c0u0RsvQa-2H9RIfAF0DeUa3SJcl1uCYB89M' 
-         width="1000" height="450" ></iframe>
-
+          <iframe src='https://webchat.botframework.com/embed/dotnetbot-bot?s=FaRy1tSDNy0.WpPB4f5c0u0RsvQa-2H9RIfAF0DeUa3SJcl1uCYB89M' 
+          width="1000" height="450" ></iframe>
+        </Grid>
 
       </Grid.Container>
       </main>

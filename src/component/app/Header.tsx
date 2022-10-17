@@ -1,7 +1,7 @@
 import {icons} from '@/component/common/icons';
 import {HeaderMenu} from "@/component/common/HeaderMenu";
 import type {HeaderMenuProps} from "@/component/common/HeaderMenu";
-
+import styles from "@/styles/Home.module.css";
 
 const headerMenuProps:HeaderMenuProps[] =[
 {
@@ -85,6 +85,10 @@ const headerMenuProps:HeaderMenuProps[] =[
 
 export const Header: React.FC = () => {
     return(
+      
+      <div className={styles.header}>
       <HeaderMenu headerMenuProps={headerMenuProps} />
+      </div>
+      
     )
 }
