@@ -2,23 +2,20 @@ import type { NextPage,GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
-import {LinkCard} from '@/component/app/LinkCard';
-import type {AreaGraphProps} from '@/component/app/LinkCard';
+import {LinkCardWithArea} from '@/component/app/LinkCardWithArea';
+import type {AreaGraphProps} from '@/component/app/LinkCardWithArea';
 import {LinkCardWithPie} from '@/component/app/LinkCardWithPie';
 import type {PieGraphProps} from '@/component/app/LinkCardWithPie';
-import {
-  Grid,
-  Text,
-  Spacer,
-} from '@nextui-org/react';
+import { Grid, Text, Spacer,} from '@nextui-org/react';
 
 
-
-type Props = {
+// Homeページへの引数
+type HomeStaticProps = {
   dummy:string;
 }
 
 
+//*** 本日の検査数の推移を表すグラフコンポーネント ***//
 const CurerntTests = () =>{
   const areaGraphProps:AreaGraphProps = {
     dummy: "sss",
@@ -61,7 +58,7 @@ const CurerntTests = () =>{
     ],
   }
   return(
-      <LinkCard url="https://nextjs.org/docs" title="現在の総検査数" 
+      <LinkCardWithArea url="https://nextjs.org/docs" title="現在の総検査数" 
       areaGraphProps={areaGraphProps}
       footerText="クリックすると詳細情報を確認できます"
       />
@@ -69,6 +66,7 @@ const CurerntTests = () =>{
 }
 
 
+//*** 本日のエラー数の推移を表すグラフコンポーネント ***//
 
 const CurerntError = () =>{
   const areaGraphProps:AreaGraphProps = {
@@ -112,7 +110,7 @@ const CurerntError = () =>{
     ],
   }
   return(
-      <LinkCard  url="https://nextjs.org/docs" title="現在の総エラー数" 
+      <LinkCardWithArea  url="https://nextjs.org/docs" title="現在の総エラー数" 
       areaGraphProps={areaGraphProps}
       footerText="クリックすると詳細情報を確認できます"
       />
@@ -120,6 +118,7 @@ const CurerntError = () =>{
 }
 
 
+//*** 検査数の多い施設名を表すグラフコンポーネント ***//
 const BigUser = () =>{
   const pieGraphProps:PieGraphProps = {
    
@@ -149,7 +148,7 @@ const BigUser = () =>{
     pieType:"donuts"
   }
   return(
-      <LinkCardWithPie   url="https://nextjs.org/docs" title="ビッグユーザー" 
+      <LinkCardWithPie   url="https://nextjs.org/docs" title="ビッグユーザー Top 5" 
       pieGraphProps={pieGraphProps}
       footerText="クリックすると詳細情報を確認できます"
       />
@@ -158,7 +157,45 @@ const BigUser = () =>{
 
 
 
-const Home: NextPage<Props> = (props) => {
+//*** 消費量の多い試薬を表すグラフコンポーネント ***//
+const  TypicalAnalytes= () =>{
+  const pieGraphProps:PieGraphProps = {
+   
+    data : [
+      {
+        name: 'AFP',
+        value: 2123,
+      },
+      {
+        name: 'CEA',
+        value: 2399,
+      },
+      {
+        name: 'HBsAg',
+        value: 4456,
+      },
+      {
+        name: 'HBsAb',
+        value: 4562,
+      },
+      {
+        name: 'Cov19',
+        value: 3245,
+      },
+      
+    ],
+    pieType:"pie"
+  }
+  return(
+      <LinkCardWithPie   url="https://nextjs.org/docs" title="検査試薬 Top 5" 
+      pieGraphProps={pieGraphProps}
+      footerText="クリックすると詳細情報を確認できます"
+      />
+  )
+}
+
+
+const Home: NextPage<HomeStaticProps> = (props) => {
   
 
    return (
@@ -188,9 +225,15 @@ const Home: NextPage<Props> = (props) => {
           <CurerntError/>
         </Grid>
         
-        <Grid xs={12} md={12} justify="center">
+        <Grid xs={12} md={6} justify="center">
           <BigUser/>
         </Grid>
+
+        <Grid xs={12} md={6} justify="center">
+          <TypicalAnalytes/>
+        </Grid>
+
+
         <Spacer y={1}/>
         <Grid xs={12} md={12} justify="center">
 
@@ -217,15 +260,15 @@ const Home: NextPage<Props> = (props) => {
 }
 
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  console.log("Home ISR running !!!\n");
+export const getStaticProps: GetStaticProps<HomeStaticProps> = async () => {
+  console.log("Home SSG running !!!\n");
   return {
     props: {
       dummy: "dummy",
     },
     // revalidate: 1,
   };
-};
+}
 
 
-export default Home
+export default Home;

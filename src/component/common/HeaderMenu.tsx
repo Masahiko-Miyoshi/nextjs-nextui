@@ -101,7 +101,7 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
   
   
   if(item.itemType === "nav"){
-    return <Navbar.Link  color={isDark?"warning":"inherit"} href="#"  >{item.title}</Navbar.Link>
+    return <Navbar.Link  color={isDark?"warning":"inherit"} href={(item as NavItem).to }  >{item.title}</Navbar.Link>
   }
   else if(item.itemType==="dropdown"){
     return(

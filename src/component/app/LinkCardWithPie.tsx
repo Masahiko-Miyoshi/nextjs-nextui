@@ -36,11 +36,17 @@ const renderCustomizedLabel = ({
   outerRadius,
   percent,
 }: any) => {
-  const param = (G_pieType==="donuts")?0.35:0.55;
-  const radius =  innerRadius + (outerRadius - innerRadius) * param;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
+
+  const param = (G_pieType==="donuts")?0.55:0.7;
+  const radius =  innerRadius-10 + (outerRadius - innerRadius) * param;
+  let x = cx + radius * Math.cos(-midAngle * RADIAN );
+  let y = cy + radius * Math.sin(-midAngle * RADIAN);
+  //以下は位置の微調整
+  if(midAngle < -90){
+    x = x+10;
+  }
+  
   return (
 
     <text
@@ -60,19 +66,22 @@ const PieGraph = (props:PieGraphProps) => {
 
     const {data,pieType} = props;
 
-    console.log("pieType "+pieType);
     G_pieType = pieType;
     return (
       
         <PieChart width={500} height={350}>
           <Pie
+            // startAngle={0}
+            // endAngle={360}
+            startAngle={90}
+            endAngle={-270}
             data={data}
             cx={250}
             cy={150}
             labelLine={false}
             label={renderCustomizedLabel}
             outerRadius={120}
-            innerRadius={(pieType==="donuts")?60:0}
+            innerRadius={(pieType==="donuts")?70:0}
             fill="#8884d8"
             dataKey="value"
           >
@@ -101,6 +110,23 @@ type LinkCardPieGraphProps = {
   // リンクカード
 export const LinkCardWithPie = ( props:LinkCardPieGraphProps ) => {
     const {title,footerText, pieGraphProps, url} = props;
+    const {data,pieType} = pieGraphProps;
+
+    const dataSorted = data.sort((a, b)=> {
+      return (a.value < b.value) ? 1 : -1;  //オブジェクトの昇順ソート
+    });
+    const nameOfTop = dataSorted[0].name;
+
+    // 検査数の一番多い病院名を探す
+    // let maxNum = 0;
+    // let nameOfTop="";
+    // data.map((item)=>{
+    //   console.log("AAA"+nameOfTop)
+    //   if(item.value > maxNum){
+    //     nameOfTop = item.name;
+    //     maxNum = item.value;
+    //   }
+    // })
     return (
       <>
         <Link href={url}>
@@ -109,10 +135,12 @@ export const LinkCardWithPie = ( props:LinkCardPieGraphProps ) => {
             <Card.Header>
             <Text  b size = {20} color="secondary" 
             css={{textGradient: "45deg, $blue500 -0%, $yellow500 100%" }}> {title} </Text>
-
+            <Text css={{px:"45px" }} h1 >
+              {nameOfTop}
+            </Text>
             </Card.Header>
             <Card.Body>
-              <PieGraph {...pieGraphProps} />
+              <PieGraph data = {dataSorted}  pieType={pieType} />
             </Card.Body>
 
             <Card.Footer>

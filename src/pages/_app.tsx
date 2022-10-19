@@ -4,7 +4,7 @@ import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import { createTheme, NextUIProvider } from "@nextui-org/react";
+import { createTheme, NextUIProvider,globalCss } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import {Header} from "@/component/app/Header";
 import {Contents} from "@/component/app/Contents";
@@ -86,7 +86,12 @@ function MyApp({ Component, pageProps,router }: AppPropsWithLayout) {
     return null;
   }
   //
+  
+  const globalStyles = globalCss({
+    body: { fontFamily: "Arial" }
+  });
 
+  globalStyles();
   return (
     <NextThemesProvider
       defaultTheme="system"

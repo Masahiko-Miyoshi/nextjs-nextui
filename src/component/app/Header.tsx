@@ -65,17 +65,17 @@ const headerMenuProps:HeaderMenuProps[] =[
 {
   itemType: "nav",
   title: "過去の統計データ",
-  to:"#",
+  to:"/",
 },
 {
   itemType: "nav",
   title: "ボット",
-  to:"#",
+  to:"/ChatBot",
 },
 {
   itemType: "nav",
   title: "設定",
-  to:"#",
+  to:"/",
 },
 
 
