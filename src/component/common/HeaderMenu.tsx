@@ -2,8 +2,8 @@ import React,{Key} from "react";
 import { Grid,Navbar, Text, Switch, Dropdown } from "@nextui-org/react";
 import { useTheme as useNextTheme } from 'next-themes';
 import { useTheme } from '@nextui-org/react';
-import {Logo} from '@/component/common/Logo'
-
+import {Logo} from '@/component/common/Logo';
+import NextLink from 'next/link'
 
 type MenuItemType = "nav" | "dropdown";
 
@@ -101,7 +101,11 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
   
   
   if(item.itemType === "nav"){
-    return <Navbar.Link  color={isDark?"warning":"inherit"} href={(item as NavItem).to }  >{item.title}</Navbar.Link>
+    return (
+      <NextLink href={(item as NavItem).to}>
+        <Navbar.Link  color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
+      </NextLink>
+      )
   }
   else if(item.itemType==="dropdown"){
     return(

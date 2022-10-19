@@ -70,7 +70,7 @@ const headerMenuProps:HeaderMenuProps[] =[
 {
   itemType: "nav",
   title: "ボット",
-  to:"/ChatBot",
+  to:"ChatBot",
 },
 {
   itemType: "nav",
