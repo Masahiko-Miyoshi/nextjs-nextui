@@ -64,9 +64,15 @@ const headerMenuProps:HeaderMenuProps[] =[
 },
 {
   itemType: "nav",
+  title: "プロセスモニター",
+  to:"ProcessMonitor",
+},
+{
+  itemType: "nav",
   title: "過去の統計データ",
   to:"/",
 },
+
 {
   itemType: "nav",
   title: "ボット",
@@ -87,7 +93,7 @@ export const Header: React.FC = () => {
     return(
       
       <div className={styles.header}>
-      <HeaderMenu headerMenuProps={headerMenuProps} />
+        <HeaderMenu headerMenuProps={headerMenuProps} />
       </div>
       
     )

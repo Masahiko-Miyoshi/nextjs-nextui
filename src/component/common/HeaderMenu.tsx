@@ -4,6 +4,7 @@ import { useTheme as useNextTheme } from 'next-themes';
 import { useTheme } from '@nextui-org/react';
 import {Logo} from '@/component/common/Logo';
 import NextLink from 'next/link'
+import confetti from 'canvas-confetti';
 
 type MenuItemType = "nav" | "dropdown";
 
@@ -103,8 +104,14 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
   if(item.itemType === "nav"){
     return (
       <NextLink href={(item as NavItem).to}>
-        <Navbar.Link  color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
-      </NextLink>
+        {
+        (item.title ==="ボット")||(item.title ==="プロセスモニター") ?
+            <Navbar.Link  onPress={()=>{confetti()}} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
+          :
+            <Navbar.Link   color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
+        }
+        {/* <Navbar.Link   color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link> */}
+        </NextLink>
       )
   }
   else if(item.itemType==="dropdown"){
@@ -147,7 +154,7 @@ export const HeaderMenu :React.FC<Props> = (props) =>{
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
   return (
-    <Navbar   shouldHideOnScroll  isBordered variant={"sticky"} maxWidth={"xl"} css={{opacity: "0.9",backgroundColor:"#476bef"}}>
+    <Navbar   shouldHideOnScroll  isBordered variant={"sticky"} maxWidth={"xl"} css={{opacity: "0.9",backgroundColor:"#476bef",width:"100%"}}>
       <Navbar.Toggle showIn="xs" hideIn="sm" />
       <Navbar.Brand
           css={{

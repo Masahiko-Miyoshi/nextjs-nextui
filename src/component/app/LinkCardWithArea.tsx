@@ -5,7 +5,6 @@ import {
     Link,
   } from '@nextui-org/react';
   import { Legend, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import NavbarItem from '@nextui-org/react/types/navbar/navbar-item';
 
 
 type AreaDataFormat ={
