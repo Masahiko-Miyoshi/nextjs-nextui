@@ -1,6 +1,6 @@
 import React from 'react'
 import type { NextPage,GetStaticProps } from 'next'
-import {Text,Grid} from '@nextui-org/react';
+import {Grid} from '@nextui-org/react';
 import styles from '@/styles/Home.module.css';
 import {LinkCardWithImage} from '@/component/app/LinkCardWithImage';
 

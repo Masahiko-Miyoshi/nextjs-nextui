@@ -7,6 +7,7 @@ import type {AreaGraphProps} from '@/component/app/LinkCardWithArea';
 import {LinkCardWithPie} from '@/component/app/LinkCardWithPie';
 import type {PieGraphProps} from '@/component/app/LinkCardWithPie';
 import { Grid, Text, Spacer,} from '@nextui-org/react';
+import {Logo} from '@/component/common/Logo';
 
 
 // Homeページへの引数
@@ -219,13 +220,15 @@ const Home: NextPage<HomeStaticProps> = (props) => {
         alignItems="center"
         css={{ maxW:2000, marginTop:50 }}
       >
-        <Grid xs={12} md={6} xl={4}　justify="center">
+        
+        <Grid xs={12} md={6} xl={4} justify="center">
           <CurerntTests/>
         </Grid>
         <Grid xs={12} md={6} xl={4} justify="center">
           <CurerntError/>
         </Grid>
         
+        <section id="POS_ANALYTES" />
         <Grid xs={12} md={6} xl={4} justify="center">
           <BigUser/>
         </Grid>
@@ -238,22 +241,21 @@ const Home: NextPage<HomeStaticProps> = (props) => {
         <Spacer y={1}/>
         <Grid xs={12} md={12} xl={4} justify="center">
 
-          <iframe src='https://webchat.botframework.com/embed/dotnetbot-bot?s=FaRy1tSDNy0.WpPB4f5c0u0RsvQa-2H9RIfAF0DeUa3SJcl1uCYB89M' 
+          <iframe src='https://fr13botapp.azurewebsites.net/' 
           width="1000" height="450" ></iframe>
         </Grid>
 
       </Grid.Container>
       </main>
       <footer className={styles.footer}>
+        <Logo/>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://otsukael.jp"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          Powered by Otsuka electronics Co, Ltd.
+          
         </a>
       </footer>
     </div>

@@ -6,6 +6,7 @@ import {Logo} from '@/component/common/Logo';
 import NextLink from 'next/link'
 import confetti from 'canvas-confetti';
 
+
 type MenuItemType = "nav" | "dropdown";
 
 type NavItem = {
@@ -19,7 +20,7 @@ type ChildItem = {
   title: string;
   discription: string;
   icon?: JSX.Element;
-  to: string;
+  func: ()=>void;
 
 }
 
@@ -32,12 +33,16 @@ type DropdownItem = {
 export type HeaderMenuProps = NavItem | DropdownItem;
 
 
+type DefineHandler ={
+  key: string;
+  func: ()=>void
+} 
+
+let handlerTable: DefineHandler[] = new Array();
 
 const handleAction = (key:Key) : void =>{
-  switch(key){
-    case "autoscaling":
-      console.log("QQQQQQQQQQQQQQQQQQQ");
-  }
+  const defHandler = handlerTable.find((item)=>item.key==key)
+  defHandler?.func();
 
 }
 
@@ -49,6 +54,7 @@ type DropdownChildItemProps = {
 
 const DropdownChildItem:React.FC<DropdownChildItemProps> = (props) =>{
   const {item} = props;
+  handlerTable.splice(0);
   return(
     <Dropdown.Menu
       color="secondary"
@@ -73,7 +79,9 @@ const DropdownChildItem:React.FC<DropdownChildItemProps> = (props) =>{
       }}
     >
     {
+      
       (item as DropdownItem).childrenItem.map((child)=>{
+        handlerTable.push({key:child.key, func:child.func})
         return(
         <Dropdown.Item
           key={child.key}
@@ -106,7 +114,7 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
       <NextLink href={(item as NavItem).to}>
         {
         (item.title ==="ボット")||(item.title ==="プロセスモニター") ?
-            <Navbar.Link  onPress={()=>{confetti()}} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
+            <Navbar.Link  onClick={()=>{confetti()}} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
           :
             <Navbar.Link   color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
         }
@@ -153,8 +161,10 @@ type Props = {
 export const HeaderMenu :React.FC<Props> = (props) =>{
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
+
+ 
   return (
-    <Navbar   shouldHideOnScroll  isBordered variant={"sticky"} maxWidth={"xl"} css={{opacity: "0.9",backgroundColor:"#476bef",width:"100%"}}>
+    <Navbar   shouldHideOnScroll  isBordered variant={"sticky"} maxWidth={"fluid"} css={{opacity: "0.9",backgroundColor:"#476bef",width:"100%"}}>
       <Navbar.Toggle showIn="xs" hideIn="sm" />
       <Navbar.Brand
           css={{

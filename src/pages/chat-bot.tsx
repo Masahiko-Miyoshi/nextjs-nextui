@@ -14,10 +14,10 @@ export const ChatBot:NextPage<ChatBotStaticProps> = (props)=>{
       <div className={styles.container}>
         <main className={styles.main}>
           <Grid.Container
-          gap={2}
+          // gap={2}
           justify="center"
           alignItems="center"
-          css={{ maxW:2000, marginTop:50 }}
+          css={{ maxW:2000, marginTop:0 }}
           >
             <Text 
               h2

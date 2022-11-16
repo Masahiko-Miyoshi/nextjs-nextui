@@ -39,7 +39,6 @@ const PasswordInput = (props?:Props) =>  {
   };  
   const handleUsername = (event:any):void => {
     userName = event.target.value; 
-    console.log("AAAAA");
     
   };  
   const handlePassword = (event:any):void => {
