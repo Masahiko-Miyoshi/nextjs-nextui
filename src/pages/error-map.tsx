@@ -243,7 +243,7 @@ export const ErrorMap:NextPage<ErrorMapProps> = (props) => {
         projection = {"globe"}
         // pitch={85}
         maxPitch ={85}
-        maxZoom={21}
+        maxZoom={20}
       >
 
 
