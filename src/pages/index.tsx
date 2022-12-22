@@ -17,6 +17,7 @@ import type {BarGraphProps} from "@/component/app/LinkCardWithBar";
 // );
 import type {LabelFormat,AnyJson} from "@/component/app/LinkCardWithBar";
 import {getPastelColor} from "@/styles/color";
+import { sendStatusCode } from "next/dist/server/api-utils";
 
 
 // Homeページへの引数
@@ -252,7 +253,7 @@ const  ChinaReagConsume= () =>{
     { key: "HIV", color: "#8884d8" },
     { key: "HBsAg", color: "#82ca9d" },
     { key: "CV19", color: "#81cc2d" },
-    { key: "AAA", color: "#01cc2d" },
+    { key: "BBB", color: "#01cc2d" },
 
   ];
   
@@ -277,7 +278,6 @@ const  ChinaReagConsume= () =>{
   },
   [udpateGraph]);
 
-  
   const fetchData = async () => {
     const response = await fetch('/api/azuredb/?table=ChinaReagConsume');
     const respJson:AnyJson[] = await response.json();
@@ -286,6 +286,7 @@ const  ChinaReagConsume= () =>{
     let updateValue:AnyJson={};
     let allValue:AnyJson={};
    
+
     /*
       Convert JSON format 
       from 
