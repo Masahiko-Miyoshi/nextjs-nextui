@@ -23,7 +23,8 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
+  #add -npm install option -legacy-peer-deps 2022-12-22
+          npm install --legacy-peer-deps 
           npm run build --if-present
           npm run test --if-present
             
