@@ -16,8 +16,8 @@ export const ProcessMonitor:NextPage<ProcessMonitorStaticProps> = (props)=>{
     const {fileList} = props;
     
     return(
-      <div className={styles.container}>
-        <main className={styles.main}>
+       <div className={styles.container}>
+        <main className={styles.main}> 
           <Grid.Container
           gap={2}
           justify="center"
@@ -34,8 +34,7 @@ export const ProcessMonitor:NextPage<ProcessMonitorStaticProps> = (props)=>{
             })}
           </Grid.Container>
         </main>
-          
-      </div>
+      </div> 
     )   
 }
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { Switch, Card, Text, Link, } from '@nextui-org/react';
 import moment from 'moment';
 import { Brush, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Label } from "recharts";
 
@@ -9,8 +10,7 @@ export type LabelFormat = {
    color: string;
 };
   
-type BarGraphProps = {
-    title: string;
+export type BarGraphProps = {
     dataKey:string;
     oxLabel:string;
     oyLabel:string;
@@ -19,12 +19,13 @@ type BarGraphProps = {
     labels:LabelFormat[];
   };
 
-  const BarGraph = (props:BarGraphProps) => {
-    const {title ,dataKey,oxLabel,oyLabel,values,yLimit,labels} = {...props};
-  
+  export const BarGraph = (props:BarGraphProps) => {
+    const {dataKey,oxLabel,oyLabel,values,yLimit,labels} = {...props};
+    
     return (
       <div>
-        <h3>{title}</h3>
+        
+        
         <BarChart
           width={1200}
           height={300}
@@ -56,9 +57,9 @@ type BarGraphProps = {
           <Brush
           dataKey={dataKey}
           stroke="#8884d8"
-          startIndex={values.length-20}
+          startIndex={values.length-20>0?values.length-20:1}
           endIndex={values.length-1}
-          height={50}
+          height={30}
           />
           {labels.map((label, index) => (
             <Bar
@@ -73,5 +74,45 @@ type BarGraphProps = {
     );
   };
   
-  export default BarGraph;
+type LinkCardBarGraphProops = {
+    title:string; 
+    footerText?:string;
+    barGraphProps:BarGraphProps;
+    setUpdateGraph: (updateGraph:boolean)=>void
+}
+  
+  // リンクカード
+export const LinkCardWithBar = ( props:LinkCardBarGraphProops ) => {
+    const {title,footerText, barGraphProps,} = props;
+    const [updateGraph,setUpdateGraph] = React.useState(false);
+    
+
+    const funcSwitchChanged = (e:any) =>{
+        setUpdateGraph(e.target.checked ? true : false);
+        props.setUpdateGraph(e.target.checked ? true : false);
+    }
+    return (
+  
+          <Card isHoverable  variant = "bordered" css={{ mw: "1400px"}}>
+            <Card.Header>
+            <Text  b size = {20} color="secondary" 
+            css={{textGradient: "45deg, $blue500 -0%, $yellow500 100%" }}> {title} </Text>
+
+            <Switch shadow color="error"
+                checked={updateGraph}
+                onChange={funcSwitchChanged}
+                css ={{paddingLeft:"20px"}}
+            />   
+
+            </Card.Header>
+            <Card.Body>
+              <BarGraph {...barGraphProps} />
+            </Card.Body>
+
+            <Card.Footer>
+              <Text size="12px" > {footerText} </Text>
+            </Card.Footer>
+          </Card>
+    )
+  }
   

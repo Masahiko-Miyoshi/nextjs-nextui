@@ -13,6 +13,7 @@ type NavItem = {
   itemType: MenuItemType;
   title: string;
   to: string;
+  func?: ()=>void
 }
 
 type ChildItem = {
@@ -110,18 +111,30 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
   
   
   if(item.itemType === "nav"){
-    return (
-      <NextLink href={(item as NavItem).to}>
-        {
-        (item.title ==="ボット")||(item.title ==="プロセスモニター") ?
-            <Navbar.Link  onClick={()=>{confetti()}} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
-          :
-            <Navbar.Link   color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
-        }
-        {/* <Navbar.Link   color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link> */}
-        </NextLink>
-      )
-  }
+      if((item as NavItem).to){
+        const linkTo = (item as NavItem).to;
+        let internalLink = true;
+        if(linkTo.includes("https")) internalLink=false;
+        
+        return (
+            <NextLink href={linkTo}  >
+             {
+              // Use onClick handler instead of onPress to escape startup warning
+               internalLink ?
+                 <Navbar.Link  href = {linkTo} onClick={(e:any)=>{confetti()}} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link> :
+                 <Navbar.Link  target="_blank" href = {linkTo} onClick={(e:any)=>{confetti()}} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
+             }
+            
+            {/* <Navbar.Link   href = {linkTo} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link> */}
+            </NextLink>
+        )
+      }
+      else{
+        return(
+          <Navbar.Link   onPress={(item as NavItem).func} color={isDark?"warning":"inherit"}  >{item.title}</Navbar.Link>
+        )
+      }
+    }
   else if(item.itemType==="dropdown"){
     return(
       <Dropdown isBordered>
@@ -201,7 +214,6 @@ export const HeaderMenu :React.FC<Props> = (props) =>{
             return <NavbarItem  key={index}  item={item} isDark={isDark} />
          })
         }
-
       </Navbar.Content>
 
       <Navbar.Content

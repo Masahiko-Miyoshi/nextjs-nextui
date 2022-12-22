@@ -6,6 +6,8 @@ import Router from "next/router";
 
 const handleNoOfTests = ()=>{
   Router.push("/#");
+  // window.open("https://login.teamviewer.com/Connect","_blank");
+
 }
 
 const handleBigUser = ()=>{
@@ -21,13 +23,20 @@ const handleNoOfError = ()=>{
 }
 
 const handleErrorList = ()=>{
-  Router.push("error-map");
+  Router.push("error-list");
 }
 
 const handleErrorMap = ()=>{
   Router.push("error-map");
 }
 
+const handleAssayEvidence = ()=>{
+  Router.push("assay-evidence");
+}
+
+const handleSippingPicture = () =>{
+  Router.push("process-monitor");
+}
 
 
 
@@ -87,13 +96,28 @@ const headerMenuProps:HeaderMenuProps[] =[
       func: handleErrorMap,
       icon: icons.server,
     },
-    
   ]
 },
 {
-  itemType: "nav",
+  itemType: "dropdown",
   title: "プロセスモニター",
-  to:"process-monitor",
+  childrenItem: [
+    {
+      key: "AssayEvidence",
+      title: "アッセイエビデンス",
+      discription: "検体の測定エビデンスを確認できます",
+      func: handleAssayEvidence,
+      icon:icons.user,
+    },
+    {
+      key: "SippingPicture",
+      title: "検体写真",
+      discription: "検体の吸引状態を確認できます",
+      func: handleSippingPicture,
+      icon: icons.server,
+    },
+  ]
+
 },
 {
   itemType: "nav",
@@ -105,6 +129,11 @@ const headerMenuProps:HeaderMenuProps[] =[
   itemType: "nav",
   title: "ボット",
   to:"chat-bot",
+},
+{
+  itemType: "nav",
+  title: "リモート接続",
+  to:"https://login.teamviewer.com/Connect",
 },
 {
   itemType: "nav",

@@ -4,7 +4,6 @@ import {
     Text,
     Link,
   } from '@nextui-org/react';
-import { title } from 'process';
 
 type LinkCardWithImageProps = {
     title:string; 

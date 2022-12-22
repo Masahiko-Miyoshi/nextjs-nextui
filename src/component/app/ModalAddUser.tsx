@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, gray, grayDark } from "@nextui-org/react";
 
 
 export type ModalAddUserProps = {
@@ -17,9 +17,10 @@ export const ModalAddUser = (Props:ModalAddUserProps) => {
       aria-labelledby="modal-title"
       open={show}
       onClose={handleModalClose}
+      css={{backgroundColor:'$gray200'}}
       >
       <Modal.Header>
-        <Text id="modal-title" size={18}>
+        <Text id="modal-title" size={18} color="primary">
             新規ユーザーの登録
         </Text>
       </Modal.Header>

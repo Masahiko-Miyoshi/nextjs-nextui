@@ -24,7 +24,7 @@ const PasswordInput = (props?:Props) =>  {
   
  
 
-  const handleClick = () => {
+  const handleClick = (e:any) => {
     const user = isAcceptable(userName,password);
     console.log("user:" + user);
     if(user !== null){

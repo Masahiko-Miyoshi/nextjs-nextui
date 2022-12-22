@@ -156,31 +156,31 @@ const [showModalAddUser, setShowModalAddUser] = useState(false);
     return(
 
       <>
-      <Navbar isBordered variant="sticky" maxWidth={"fluid"}>
+      <Navbar isBordered variant="sticky" maxWidth={"fluid"}  >
         <Navbar.Content hideIn="xs">
           <Navbar.Item>
-            <Button auto flat onPress={handleAddUser}>
+            <Button auto ghost onPress={handleAddUser}>
               追加
             </Button>
           </Navbar.Item>
           <Navbar.Item>
-            <Button auto flat >
+            <Button auto ghost  >
               編集
             </Button>
           </Navbar.Item>
           <Navbar.Item>
-            <Button auto flat >
+            <Button auto ghost >
               削除
             </Button>
           </Navbar.Item>
         </Navbar.Content>
       </Navbar>
 
-      <div >
-        <main className={styles.main}>
-
+      <div className={styles.container}>
+        {/* <main className={styles.main}> */}
+        <main>
           <Grid.Container
-          // gap={2}
+          gap={2}
           justify="center"
           alignItems="center"
           css={{ maxW:2000, marginTop:0 }}
@@ -195,11 +195,13 @@ const [showModalAddUser, setShowModalAddUser] = useState(false);
               bordered
               aria-label="Example dynamic collection table with color selection"
               color="primary"
+              
               selectionMode="multiple"
               // defaultSelectedKeys={["2"]}
               containerCss={{
                   height: "auto",
                   minWidth: "100%",
+                  backgroundColor:"$gray500"
               }}
               onSelectionChange={handleTest}
               >
@@ -222,6 +224,7 @@ const [showModalAddUser, setShowModalAddUser] = useState(false);
         </main>
       </div>
       </>
+      
     )
 
 

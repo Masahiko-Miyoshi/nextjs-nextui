@@ -9,14 +9,13 @@ import mapboxgl from 'mapbox-gl';
 // If the following import is remove, warinng happen !
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {PopupLabel} from  '@/component/common/PopupLabel';
-
+import {NavCardOnMap} from  '@/component/app/NavCardOnMap';
 import {Data} from '@/data/sample-data';
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
-import { Z_BUF_ERROR } from 'zlib';
+import {Grid} from "@nextui-org/react";
 
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibWl5b3NoaW1hc2FoaWtvIiwiYSI6ImNreW1kMXNlajJsOWIyb21sdTI5c2J0enkifQ.EDMYy_IZHN46YqcRpRXoLA'; // Set your mapbox token here
-
 
 const clusterLayer: LayerProps = {
   id: 'clusters',
@@ -27,9 +26,9 @@ const clusterLayer: LayerProps = {
     // 'circle-color': ['step', ['get', 'point_count'], '#51bbd6', 100, '#f1f075', 750, '#f28cb1'],
     // 'circle-opacity': ['step', ['get', 'point_count'], 0.5, 100, 0.5, 750, 0.5],
     // 'circle-radius': ['step', ['get', 'point_count'], 20, 100, 30, 750, 50]
-
-    'circle-color': ['step', ['get', 'point_count'], '#51bbd6', 10, '#f1f075', 30, '#f28cb1'],
-    'circle-opacity': ['step', ['get', 'point_count'], 0.5, 10, 0.5, 30, 0.5],
+    // 'circle-color': ['step', ['get', 'point_count'], '#51bbd6', 10, '#f1f075', 30, '#f28cb1'],
+    'circle-color': ['step', ['get', 'sumFelt'], '#51bbd6', 1, '#f28cb1', 30, '#f28cb1'],
+    'circle-opacity': ['step', ['get', 'point_count'], 0.5, 10, 0.6, 30, 0.4],
     'circle-radius': ['step', ['get', 'point_count'], 20, 10, 30, 30, 50]
 
   }
@@ -42,6 +41,7 @@ const clusterCountLayer: LayerProps = {
   filter: ['has', 'point_count'],
   layout: {
     'text-field': '{point_count_abbreviated}',
+    // 'text-field': '{sumFelt}',
     'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
     'text-size': 12
   }
@@ -60,16 +60,22 @@ const unclusteredPointLayer: LayerProps = {
   // },
  
   layout: {
-    'icon-image':"hospital-JP",
+    'icon-image':["case",["<",["get","felt"],1],"hospital-JP-green","hospital-JP"],
+
+
     // 'icon-image':"cat",
     "icon-size": 1.5
   },
 };
 
 
-type ErrorMapProps = {
- request: string;
 
+
+type ErrorMapProps = {
+ request?: string;
+ hospitalName?: string;
+ lat?: number,
+ lon?: number,
 }
 
 
@@ -95,27 +101,28 @@ type TypeShowPopupParam = {
     top?: number,
     lat?: number,
     lon?: number,
+    visit?: boolean,
+    hospitalName:string,
 }
 
 
-export const ErrorMap:NextPage<ErrorMapProps> = (props) => {
+const ErrorMap:NextPage<ErrorMapProps> = (props) => {
 
-  const {request}=props;
+  const {request,lon,lat,hospitalName}=props;
   const mapRef = useRef<MapRef>(null);
-
-  const [showPopupParam, setShowPopupParam] = React.useState<TypeShowPopupParam>({show:false});
-
-
- 
+  const [showPopupParam, setShowPopupParam] = React.useState<TypeShowPopupParam>({show:false, hospitalName:hospitalName?hospitalName:"" });
 
   const onLoad = (event:mapboxgl.MapboxEvent<undefined>):void =>{
-      if(request==="zoom"){
-      mapRef.current?.flyTo({center: [118.08, 24.48], duration: 2000, zoom: 17});
+      if(request==="visit"){
+       if(lon && lat){ 
+        mapRef.current?.flyTo({center: [lon, lat], duration: 5000, zoom: 17});
+       }
+      if(hospitalName){
+        setShowPopupParam({show:false, visit:true, hospitalName:hospitalName,}); 
+      }
       }
 
   }
-
- 
   const onClick = (event:any) => {
     if(!mapRef.current) return;
     const map = mapRef.current;
@@ -125,7 +132,7 @@ export const ErrorMap:NextPage<ErrorMapProps> = (props) => {
     if(!feature){
       console.log("Feachuer null!")
       if(showPopupParam.show)
-        setShowPopupParam({show:false}); 
+        setShowPopupParam({show:false, visit:showPopupParam.visit, hospitalName:""}); 
        return;
     }
     const clusterId = feature.properties.cluster_id;
@@ -182,7 +189,9 @@ export const ErrorMap:NextPage<ErrorMapProps> = (props) => {
         left: event.point.x,
         top: event.point.y,
         lat: coordinates[0],
-        lon: coordinates[1],});
+        lon: coordinates[1],
+        hospitalName:event.features[0].properties.id });
+        
     }
 
   }
@@ -214,40 +223,67 @@ export const ErrorMap:NextPage<ErrorMapProps> = (props) => {
       else{
         z = 10;
       }
-      mapRef.current?.flyTo({center: [lat, lon], duration: 2000, zoom: z});
+      mapRef.current?.flyTo({center: [lat, lon], duration: 5000, zoom: z});
     }
-    setShowPopupParam({show:false}); 
-
+    setShowPopupParam({show:false, visit:true,hospitalName:showPopupParam.hospitalName}); 
   }
 
+
+  const handleNavClose = (e: any)=>{
+    console.log("Enter Enter");
+    setShowPopupParam({show:false, visit:false, hospitalName:""}); 
+  }
+
+
+
+  const url = "https://carisxblob.blob.core.windows.net/bot-resource/病院.png";
+  let a,b;
+  if(showPopupParam.visit){
+    a = 9.2;
+    b = 2.8;
+  }
+  else{
+    a = 12;
+    b = 0;
+  }
   return (
-    <>
-   
+      <Grid.Container
+      gap={1}
+      justify="center"
+      alignItems="center"
+      css={{ maxW:2000, marginTop:0 }}
+      >
+      
+      <Grid xs={0} md={a} xl={a} justify="center">
+        
      <Map
         initialViewState={{
-          latitude: 40.67,
-          longitude: -103.59,
+          latitude: 36,
+          longitude: 140,
           zoom: 3,
         }}
         // mapStyle="mapbox://styles/mapbox/dark-v10"
-        // mapStyle = "mapbox://styles/miyoshimasahiko/ckymdbhj60zo014mob9ayej95"
-        mapStyle = "mapbox://styles/miyoshimasahiko/clahuihs2000915qj7dxw3rxv"
+        mapStyle = "mapbox://styles/miyoshimasahiko/ckymdbhj60zo014mob9ayej95"
+        // mapStyle = "mapbox://styles/miyoshimasahiko/clahuihs2000915qj7dxw3rxv"
         mapboxAccessToken={MAPBOX_TOKEN}
         interactiveLayerIds={[clusterLayer.id,unclusteredPointLayer.id] as string[]}
         onClick={onClick}
         onLoad={onLoad}
+        
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         ref={mapRef}
-        style={{width: 1500, height: 1000}}
+        style={{width: 1500, height: 750}}
         projection = {"globe"}
         // pitch={85}
         maxPitch ={85}
-        maxZoom={20}
+        maxZoom={18}
       >
 
 
         {/* <MapImage /> */}
+
+
         <Source
           id="earthquakes"
           type="geojson"
@@ -258,8 +294,9 @@ export const ErrorMap:NextPage<ErrorMapProps> = (props) => {
           clusterMaxZoom={14}
           clusterRadius={50}
           clusterProperties={{
-            magSum : ['+', ['get', 'mag']],
-            maxSum : ['max', ['get', 'mag']],
+            sumMag : ['+', ['get', 'mag']],
+            maxMag : ['max', ['get', 'mag']],
+            sumFelt : ['+', ['get', 'felt']],
           }}
           
         >
@@ -272,10 +309,15 @@ export const ErrorMap:NextPage<ErrorMapProps> = (props) => {
                     top={showPopupParam.top}
                     left={showPopupParam.left} 
                     onPress={onPressMapLabel} />
-        
+ 
 
       </Map>
-    </>
+      </Grid>
+      
+      <Grid xs={12} md={b} xl={b} justify="center">
+        <NavCardOnMap title={showPopupParam.hospitalName+" へようこそ❤"} footerText='' imageUrl={url} onClose={handleNavClose} />
+      </Grid>
+      </Grid.Container>
   );
 }
 
@@ -300,10 +342,19 @@ export const getStaticProps: GetStaticProps<ErrorMapProps> = async ({params}) =>
 
 export const getServerSideProps: GetServerSideProps= async ({query}) => {
   console.log("Error map SSR running !!!\n");
-  const argParam = query?.request as string
+  const request = query?.request as string;
+  const lat = parseFloat(query?.lat as string);
+  const lon = parseFloat(query?.lon as string);
+  const hospitalName = query?.hospitalName as string;
+
+console.log(query)
+
   return {
     props: {
-      request:argParam || null
+      request :request?request:null,
+      lat: lat?lat:null,
+      lon: lon?lon:null,
+      hospitalName: hospitalName?hospitalName:"",
     }
     // revalidate: 1,
   };

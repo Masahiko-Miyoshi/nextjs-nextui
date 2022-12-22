@@ -1,13 +1,22 @@
+import React, { useEffect, useState } from "react";
 import type { NextPage,GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import {LinkCardWithArea} from '@/component/app/LinkCardWithArea';
-import type {AreaGraphProps} from '@/component/app/LinkCardWithArea';
+import type {AreaDataFormat,AreaGraphProps} from '@/component/app/LinkCardWithArea';
 import {LinkCardWithPie} from '@/component/app/LinkCardWithPie';
 import type {PieGraphProps} from '@/component/app/LinkCardWithPie';
-import { Grid, Text, Spacer,} from '@nextui-org/react';
+import { Button, Switch,Grid, Text, Spacer,} from '@nextui-org/react';
 import {Logo} from '@/component/common/Logo';
+import {LinkCardWithBar} from "@/component/app/LinkCardWithBar";
+import type {BarGraphProps} from "@/component/app/LinkCardWithBar";
+// import dynamic from "next/dynamic";
+// const BarGraph = dynamic(
+//   import("@/component/app/BarGraph"),
+//   { ssr: false }
+// );
+import type {LabelFormat,AnyJson} from "@/component/app/LinkCardWithBar";
+import {getPastelColor} from "@/styles/color";
 
 
 // Homeページへの引数
@@ -18,46 +27,74 @@ type HomeStaticProps = {
 
 //*** 本日の検査数の推移を表すグラフコンポーネント ***//
 const CurerntTests = () =>{
-  const areaGraphProps:AreaGraphProps = {
+  const initialValue:AreaGraphProps = {
     dummy: "sss",
     data : [
       {
-        time: '8:00',
-        value1: 10,
-        value2: 3,
+        Time: '8:00',
+        Value1: 10,
+        Value2: 3,
       },
       {
-        time: '9:00',
-        value1: 210,
-        value2: 128,
+        Time: '9:00',
+        Value1: 210,
+        Value2: 128,
       },
       {
-        time: '10:00',
-        value1: 527,
-        value2: 231,
+        Time: '10:00',
+        Value1: 527,
+        Value2: 231,
       },
       {
-        time: '11:00',
-        value1: 770,
-        value2: 345,
+        Time: '11:00',
+        Value1: 770,
+        Value2: 345,
       },
       {
-        time: '12:00',
-        value1: 690,
-        value2: 454,
+        Time: '12:00',
+        Value1: 690,
+        Value2: 454,
       },
       {
-        time: '13:00',
-        value1: 200,
-        value2: 123,
+        Time: '13:00',
+        Value1: 200,
+        Value2: 123,
       },
       {
-        time: '14:00',
-        value1: 150,
-        value2: 74,
+        Time: '14:00',
+        Value1: 150,
+        Value2: 74,
       },
     ],
   }
+  const [data,setData] = useState<AreaDataFormat[]>(initialValue.data);
+  
+
+
+  useEffect(()=>{
+    const intervalId:NodeJS.Timer = setInterval(()=>
+      {
+          fetchData();
+      }, 1000);
+    return ()=>{
+      clearInterval(intervalId);
+    } 
+  },
+  []);
+
+  
+  const fetchData = async () => {
+    const response = await fetch('/api/azuredb/?table=ChinaNoOfTestTodayView');
+    const respJson:AreaDataFormat[] = await response.json();
+    setData(respJson)
+  }
+
+  const areaGraphProps: AreaGraphProps = {
+    dummy: "sss",
+    data : [...data]
+  }
+    
+
   return(
       <LinkCardWithArea url="https://nextjs.org/docs" title="現在の総検査数" 
       areaGraphProps={areaGraphProps}
@@ -74,39 +111,39 @@ const CurerntError = () =>{
     dummy: "sss",
     data : [
       {
-        time: '8:00',
-        value1: 1,
-        value2: 3,
+        Time: '8:00',
+        Value1: 1,
+        Value2: 3,
       },
       {
-        time: '9:00',
-        value1: 2,
-        value2: 1,
+        Time: '9:00',
+        Value1: 2,
+        Value2: 1,
       },
       {
-        time: '10:00',
-        value1: 5,
-        value2: 2,
+        Time: '10:00',
+        Value1: 5,
+        Value2: 2,
       },
       {
-        time: '11:00',
-        value1: 7,
-        value2: 3,
+        Time: '11:00',
+        Value1: 7,
+        Value2: 3,
       },
       {
-        time: '12:00',
-        value1: 6,
-        value2: 4,
+        Time: '12:00',
+        Value1: 6,
+        Value2: 4,
       },
       {
-        time: '13:00',
-        value1: 2,
-        value2: 1,
+        Time: '13:00',
+        Value1: 2,
+        Value2: 1,
       },
       {
-        time: '14:00',
-        value1: 10,
-        value2: 7,
+        Time: '14:00',
+        Value1: 10,
+        Value2: 7,
       },
     ],
   }
@@ -195,10 +232,155 @@ const  TypicalAnalytes= () =>{
   )
 }
 
+//*** 消費量の多い試薬を表すグラフコンポーネント ***//
+const  ChinaReagConsume= () =>{
+ 
+ 
+
+//  const initValue:dataFormat[] = [
+  const initValue:AnyJson[] = [
+      { Date: "2020-09-01", AFP: 123, CEA: 240, CV19: 212, AAA:234},
+      { Date: "2020-09-02", AFP: 43, CEA: 139 },
+      { Date: "2020-09-03", AFP: 23, CEA: 100, CV19: 32 },
+      { Date: "2020-09-04", AFP: 231, CEA: 18 },
+      { Date: "2020-09-05", AFP: 143, CEA: 48, CV19: 122 },
+      { Date: "2020-09-06", AFP: 29, CEA: 38 },
+      { Date: "2020-09-07", AFP: 23, CEA: 43 },
+    ]
+
+  const initialInputLabels:LabelFormat[] = [
+    { key: "HIV", color: "#8884d8" },
+    { key: "HBsAg", color: "#82ca9d" },
+    { key: "CV19", color: "#81cc2d" },
+    { key: "AAA", color: "#01cc2d" },
+
+  ];
+  
+  
+  const [data,setData] = useState<AnyJson[]>(initValue);
+  const [inputLabels,setInputLabels] = useState<LabelFormat[]>(initialInputLabels);
+  const [udpateGraph,setUpdateGraph] = useState<boolean>(false);
+
+
+  useEffect(()=>{
+    const intervalId:NodeJS.Timer = setInterval(()=>
+      {
+        console.log("Parent:",udpateGraph);
+        if(udpateGraph){
+          fetchData();
+        }
+        
+    }, 2000);
+    return ()=>{
+      clearInterval(intervalId);
+    } 
+  },
+  [udpateGraph]);
+
+  
+  const fetchData = async () => {
+    const response = await fetch('/api/azuredb/?table=ChinaReagConsume');
+    const respJson:AnyJson[] = await response.json();
+    
+    let completedValue:AnyJson={};
+    let updateValue:AnyJson={};
+    let allValue:AnyJson={};
+   
+    /*
+      Convert JSON format 
+      from 
+                  Date:**** Analytes:AnalyteName NoOfAnalytes:number 
+      to 
+                  Date:**** AnalyteName: number 
+    */
+    const respDataConv1:AnyJson[] = [];
+    
+    for(const value of respJson){
+      const respValue : AnyJson ={};
+      respValue["Date"] = value["Date"];
+      respValue[value["Analytes"]] = value["NoOfAnalytes"];
+      respDataConv1.push(respValue);
+    }
+
+    /*
+      Merge Same Days into One
+      Convert from  
+            Date:**** AnalyteName: number
+            Date:**** AnalyteName2: number2
+            Date:**** AnalyteName3: number3
+
+      to 
+            Date:**** AnalyteName: number AnalyteName2: number2 AnalyteName3: number3 .... 
+    */
+
+    const respDataMergeDay: AnyJson[]= respDataConv1.map((value,index)=>{
+      if(value === null) return null;
+      const date:string = value.Date.slice(0,10);
+      value["Date"]=date;
+     
+      let nextDate = null;
+      if(index < respDataConv1.length-1){
+        nextDate = respDataConv1[index+1]?.Date.slice(0,10);
+      }
+  // キーの連結
+      updateValue = {...updateValue,...value};
+      allValue = {...allValue,...value};
+      completedValue = updateValue;
+  // キーの連結が終了する条件
+      
+      //最終レコード
+      if(index === respDataConv1.length-1){
+        return completedValue;
+      }
+      // 今のレコードと次のレコードの日付が違う
+      else if(date !== nextDate){
+        updateValue ={};
+        return completedValue;
+      }
+      else{
+        return null;
+      }
+  //
+    }).filter(value=>value) as AnyJson[];
+   
+    console.log("1111",respDataMergeDay);
+    setData(respDataMergeDay);
+
+    const num = Object.keys(allValue).length;
+    const colors:string[] = getPastelColor(num);
+    let counter = 0;
+    const labels:LabelFormat[]  = [];
+    for(const key of Object.keys(allValue)){
+      if(key ==="Date") continue;
+      const color:LabelFormat = {"key":key, "color":colors[counter++]};
+      labels.push(color) ;
+    }
+    setInputLabels(labels);
+   
+  }
+  const barGraphProps:BarGraphProps = {
+    dataKey: "Date",
+    oyLabel: "検査数",
+    oxLabel: "日時",
+    yLimit:[0,1],
+    values:[...data],
+    labels:[...inputLabels] 
+  };
+
+  
+  return (
+      <LinkCardWithBar title="検査試薬消費推移" 
+      barGraphProps={barGraphProps}
+      footerText="クリックすると詳細情報を確認できます" setUpdateGraph={setUpdateGraph}
+      />
+  );
+}
+
+
+
 
 
 const Home: NextPage<HomeStaticProps> = (props) => {
-
 
    return (
     <div className={styles.container}>
@@ -236,7 +418,10 @@ const Home: NextPage<HomeStaticProps> = (props) => {
         <Grid xs={12} md={6} xl={4} justify="center">
           <TypicalAnalytes/>
         </Grid>
-
+        <Spacer y={1}/>
+        <Grid xs={12} md={12} xl={12} justify="center">
+          <ChinaReagConsume/>
+        </Grid>
 
         <Spacer y={1}/>
         <Grid xs={12} md={12} xl={4} justify="center">

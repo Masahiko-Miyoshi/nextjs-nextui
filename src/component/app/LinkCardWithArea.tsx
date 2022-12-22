@@ -7,10 +7,10 @@ import {
   import { Legend, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 
-type AreaDataFormat ={
-  time:string;
-  value1: number;
-  value2: number;
+export type AreaDataFormat ={
+  Time:string;
+  Value1: number;
+  Value2: number;
 }
  
 
@@ -38,15 +38,15 @@ export type AreaGraphProps = {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="time" />
+        <XAxis dataKey="Time" />
         <YAxis />
         <Tooltip 
         labelFormatter={function(value) {
           return `時刻: ${value}`;
         }}
         />
-        <Area  name = "G1200" type="monotone" dataKey="value1" stackId="1" stroke="#8884d8" fill="#8884d8" />
-        <Area name = "FR13" type="monotone" dataKey="value2"  stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+        <Area  name = "G1200" type="monotone" dataKey="Value1" stackId="1" stroke="#8884d8" fill="#8884d8" />
+        <Area name = "FR13" type="monotone" dataKey="Value2"  stackId="1" stroke="#82ca9d" fill="#82ca9d" />
         <Legend height={20} />
       </AreaChart>
     );
@@ -56,7 +56,7 @@ export type AreaGraphProps = {
 
 
 
-type LinkCardAreaGraphProops = {
+type LinkCardAreaGraphProps = {
     title:string; 
     footerText?:string;
     areaGraphProps:AreaGraphProps;
@@ -65,14 +65,14 @@ type LinkCardAreaGraphProops = {
 }
   
   // リンクカード
-export const LinkCardWithArea = ( props:LinkCardAreaGraphProops ) => {
+export const LinkCardWithArea = ( props:LinkCardAreaGraphProps ) => {
     const {title,footerText, areaGraphProps, url} = props;
     const {data} = areaGraphProps;
     let sum = 0;
 
     if(data !== undefined){
       for(let i=0; i<data.length ; ++i){
-        sum += (data[i].value1+data[i].value2);
+        sum += (data[i].Value1+data[i].Value2);
       }
     }
     return (
