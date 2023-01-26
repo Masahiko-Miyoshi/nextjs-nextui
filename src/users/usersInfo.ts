@@ -2,6 +2,7 @@ import type {User} from '@/users/currentUser';
 
 var entryUsers:User[] =[
     {userName:"miyoshi", password:"otsuka",userLevel:1   },
+    {userName:"masahiko", password:"otsuka",userLevel:1   },
 ];
 
 export const addEntryUsers = (user:User) =>{

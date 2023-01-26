@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.3.1",
-    "@nextui-org/react": "^1.0.0-beta.10",
+    "@nextui-org/react": "^1.0.0-beta.12",
     "canvas-confetti": "^1.5.1",
     "install": "^0.13.0",
     "mapbox-gl": "^2.10.0",
@@ -23,7 +23,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-map-gl": "^7.0.19",
-    "react-mapbox-gl": "^5.1.1",
     "recharts": "^2.1.15",
     "tedious": "^15.1.2"
   },

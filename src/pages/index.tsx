@@ -6,7 +6,7 @@ import {LinkCardWithArea} from '@/component/app/LinkCardWithArea';
 import type {AreaDataFormat,AreaGraphProps} from '@/component/app/LinkCardWithArea';
 import {LinkCardWithPie} from '@/component/app/LinkCardWithPie';
 import type {PieGraphProps} from '@/component/app/LinkCardWithPie';
-import { Button, Switch,Grid, Text, Spacer,} from '@nextui-org/react';
+import { Card, Button, Switch,Grid, Text, Spacer,} from '@nextui-org/react';
 import {Logo} from '@/component/common/Logo';
 import {LinkCardWithBar} from "@/component/app/LinkCardWithBar";
 import type {BarGraphProps} from "@/component/app/LinkCardWithBar";
@@ -18,6 +18,7 @@ import type {BarGraphProps} from "@/component/app/LinkCardWithBar";
 import type {LabelFormat,AnyJson} from "@/component/app/LinkCardWithBar";
 import {getPastelColor} from "@/styles/color";
 import { sendStatusCode } from "next/dist/server/api-utils";
+import { getCurrentUser } from "@/users/currentUser";
 
 
 // Homeページへの引数
@@ -377,11 +378,39 @@ const  ChinaReagConsume= () =>{
   );
 }
 
+const PowerBI = () =>
+{
+  const currentUser = getCurrentUser();
+  let powerBIUrl;
+  if( currentUser?.userName === "miyoshi"){
+    powerBIUrl = "https://app.powerbi.com/reportEmbed?reportId=bb371fdb-78bf-450a-b78c-648d5d369b54&autoAuth=true&ctid=09d9da34-67f1-4f24-80d2-775815aa0c46&filter=ResultData/Hospital eq 'Nagoya'" 
+  }
+  else if(currentUser?.userName === "masahiko"){
+    powerBIUrl = "https://app.powerbi.com/reportEmbed?reportId=bb371fdb-78bf-450a-b78c-648d5d369b54&autoAuth=true&ctid=09d9da34-67f1-4f24-80d2-775815aa0c46&filter=ResultData/Hospital eq 'Osaka'" 
+  }
+  return(
 
+      <Card isHoverable  variant = "bordered" css={{ mw: "1400px"}}>
+        <Card.Header>
+        <Text  b size = {20} color="secondary" 
+        css={{textGradient: "45deg, $blue500 -0%, $yellow500 100%" }}> PowerBI </Text>
+        </Card.Header>
+        <Card.Body>
+          
+          <iframe title="raegent3" width="1300" height="541.25" src={powerBIUrl} ></iframe>
+        </Card.Body>
+
+        <Card.Footer>
+          <Text size="12px" > PowerBI </Text>
+        </Card.Footer>
+      </Card>
+  )
+}
 
 
 
 const Home: NextPage<HomeStaticProps> = (props) => {
+ 
 
    return (
     <div className={styles.container}>
@@ -411,7 +440,7 @@ const Home: NextPage<HomeStaticProps> = (props) => {
           <CurerntError/>
         </Grid>
         
-        <section id="POS_ANALYTES" />
+        <section id="POS_ANALYTES" />s
         <Grid xs={12} md={6} xl={4} justify="center">
           <BigUser/>
         </Grid>
@@ -425,10 +454,12 @@ const Home: NextPage<HomeStaticProps> = (props) => {
         </Grid>
 
         <Spacer y={1}/>
-        <Grid xs={12} md={12} xl={4} justify="center">
+        <Grid xs={12} md={12} xl={12} justify="center">
 
-          <iframe src='https://fr13botapp.azurewebsites.net/' 
-          width="1000" height="450" ></iframe>
+          {/* <iframe src='https://fr13botapp.azurewebsites.net/' 
+          width="1000" height="450" ></iframe> */}
+          <PowerBI />
+          
         </Grid>
 
       </Grid.Container>

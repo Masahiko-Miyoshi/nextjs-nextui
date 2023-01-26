@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Card, Text, Link, } from '@nextui-org/react';
 import moment from 'moment';
-import { Brush, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Label } from "recharts";
+import { ReferenceLine,Brush, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Label } from "recharts";
 
 
 export type AnyJson = { [prop: string]: any };
@@ -48,6 +48,22 @@ export type BarGraphProps = {
               fill="gray"
             />
           </YAxis>
+
+          <ReferenceLine
+            y={1000}
+            
+            strokeDasharray="5 5"
+            stroke="blue"
+            label={{
+              value: "Avg. 2001",
+              position: "top",
+              fill:"blue"
+            }}
+          />
+
+
+
+
           <Tooltip />
           <Legend
             // onClick={selectBar}

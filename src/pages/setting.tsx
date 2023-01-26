@@ -195,7 +195,7 @@ const [showModalAddUser, setShowModalAddUser] = useState(false);
               bordered
               aria-label="Example dynamic collection table with color selection"
               color="primary"
-              
+              striped
               selectionMode="multiple"
               // defaultSelectedKeys={["2"]}
               containerCss={{

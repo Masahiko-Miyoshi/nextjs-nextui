@@ -5,7 +5,6 @@ import Router from "next/router";
 
 import confetti from 'canvas-confetti';
 import { DlgConfirm } from '../component/common/DlgConfirm';
-import { deflateRaw } from 'zlib';
 
 type ErrorListStaticProps = {
     dummy:string,
@@ -275,7 +274,7 @@ const handleHospitalName = (e:any)  =>{
             bordered
             aria-label="Example dynamic collection table with color selection"
             color="primary"
-            
+            striped                                                                                                                                                                                                                                                                
             selectionMode="single"
             // defaultSelectedKeys={["2"]}
             containerCss={{
