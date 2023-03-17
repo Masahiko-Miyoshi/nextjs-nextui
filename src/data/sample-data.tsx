@@ -107,7 +107,8 @@ export const Data = {
     { "type": "Feature", "properties": { "id": "士別市立病院", "mag": 2.3, "time": 1507344587124, "felt": 0, "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ 142.40726919975964, 44.178693239354395, 31.7 ] } },
     { "type": "Feature", "properties": { "id": "大阪赤十字病院", "mag": 2.3, "time": 1507344587124, "felt": 1, "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ 135.52547274000602, 34.664861241726015, 31.7 ] } },
     { "type": "Feature", "properties": { "id": "大阪府済生会泉尾病院", "mag": 2.3, "time": 1507344587124, "felt": 1, "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ 135.46671345534676, 34.64946189290804, 31.7 ] } },
-    { "type": "Feature", "properties": { "id": "近畿大学病院", "mag": 2.3, "time": 1507344587124, "felt": 1, "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ 135.54971742309684, 34.47726559373711, 31.7 ] } },
+    { "type": "Feature", "properties": { "id": "近畿大学病院", "mag": 5.0, "time": 1507344587124, "felt": 1, "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ 135.54971742309684, 34.47726559373711, 31.7 ] } },
+    { "type": "Feature", "properties": { "id": "名古屋総合病院", "mag": 4.0, "time": 1507344587124, "felt": 1, "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ 136.9063, 35.1814, 31.7 ] } },
   
     ]
     }

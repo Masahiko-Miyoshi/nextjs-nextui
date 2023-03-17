@@ -69,6 +69,31 @@ const unclusteredPointLayer: LayerProps = {
 };
 
 
+const heatLayer: LayerProps = {
+  id: 'heat',
+  type: 'heatmap',
+  source: 'earthquakes',
+  'paint': {
+    'heatmap-weight': [
+      'interpolate', ['linear'], ['get', 'mag'],
+      0, 0,
+      5, 2
+    ],
+    'heatmap-intensity': 1,
+    'heatmap-color': [
+      'interpolate', ['linear'], ['heatmap-density'],    
+      0, 'rgba(33,102,172,0)',
+      0.2, 'rgb(103,169,207)',
+      0.4, 'rgb(209,229,240)',
+      0.6, 'rgb(253,219,199)',
+      0.8, 'rgb(239,138,98)',
+      1, 'rgb(178,24,43)'
+    ],
+    'heatmap-radius': 100,
+    'heatmap-opacity': 0.8
+  }
+};
+
 
 
 type ErrorMapProps = {
@@ -235,7 +260,6 @@ const ErrorMap:NextPage<ErrorMapProps> = (props) => {
   }
 
 
-
   const url = "https://carisxblob.blob.core.windows.net/bot-resource/病院.png";
   let a,b;
   if(showPopupParam.visit){
@@ -300,9 +324,16 @@ const ErrorMap:NextPage<ErrorMapProps> = (props) => {
           }}
           
         >
+          {/* 病院をクラスター化し描画するレイヤー */}
           <Layer {...clusterLayer} />
+           {/* クラスター化された病院数を描画するレイヤー */}
           <Layer {...clusterCountLayer} />
+           {/* クラスター化されない病院を描画するレイヤー */}
           <Layer {...unclusteredPointLayer}  />
+           {/*　ヒートマップレイヤー　AIに書いてもらいます*/}
+          <Layer {...heatLayer} />
+         
+
         </Source>
         <PopupLabel show={showPopupParam.show}  
                     message={showPopupParam.message}

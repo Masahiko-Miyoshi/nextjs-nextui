@@ -19,11 +19,22 @@ import type {LabelFormat,AnyJson} from "@/component/app/LinkCardWithBar";
 import {getPastelColor} from "@/styles/color";
 import { sendStatusCode } from "next/dist/server/api-utils";
 import { getCurrentUser } from "@/users/currentUser";
+import next from "next/types";
 
 
 // Homeページへの引数
 type HomeStaticProps = {
   dummy:string;
+}
+
+
+const randomIntFromInterval = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+  
+
+const makeTime = (): string => {
+  
+  return "14:10"
 }
 
 
@@ -84,10 +95,14 @@ const CurerntTests = () =>{
   },
   []);
 
-  
+
   const fetchData = async () => {
     const response = await fetch('/api/azuredb/?table=ChinaNoOfTestTodayView');
     const respJson:AreaDataFormat[] = await response.json();
+// Dummy data for DEMO
+    const nextItem:AreaDataFormat = {Time:makeTime(), Value1:randomIntFromInterval(1,700),Value2:randomIntFromInterval(1,700)}
+    respJson.push(nextItem);
+//
     setData(respJson)
   }
 
@@ -109,7 +124,7 @@ const CurerntTests = () =>{
 //*** 本日のエラー数の推移を表すグラフコンポーネント ***//
 
 const CurerntError = () =>{
-  const areaGraphProps:AreaGraphProps = {
+  const initialValue:AreaGraphProps = {
     dummy: "sss",
     data : [
       {
@@ -149,6 +164,38 @@ const CurerntError = () =>{
       },
     ],
   }
+
+  const [data,setData] = useState<AreaDataFormat[]>(initialValue.data);
+  
+
+
+  useEffect(()=>{
+    const intervalId:NodeJS.Timer = setInterval(()=>
+      {
+          fetchData();
+      }, 1000);
+    return ()=>{
+      clearInterval(intervalId);
+    } 
+  },
+  []);
+
+  const fetchData = async () => {
+    const response = await fetch('/api/azuredb/?table=ChinaNoOfTestTodayView');
+    const respJson:AreaDataFormat[] = await response.json();
+// Dummy data for DEMO
+   
+    const nextItem:AreaDataFormat = {Time:makeTime(), Value1:randomIntFromInterval(1,200),Value2:randomIntFromInterval(1,200)}
+    respJson.push(nextItem);
+//
+    setData(respJson)
+  }
+
+  const areaGraphProps: AreaGraphProps = {
+    dummy: "sss",
+    data : [...data]
+  }
+
   return(
       <LinkCardWithArea  url="https://nextjs.org/docs" title="現在の総エラー数" 
       areaGraphProps={areaGraphProps}
@@ -295,14 +342,27 @@ const  ChinaReagConsume= () =>{
       to 
                   Date:**** AnalyteName: number 
     */
-    const respDataConv1:AnyJson[] = [];
+
     
+    // const respDataConv1:AnyJson[] = [];
+    // for(const value of respJson){
+    //   const respValue : AnyJson ={};
+    //   respValue["Date"] = value["Date"];
+    //   respValue[value["Analytes"]] = value["NoOfAnalytes"];
+    //   respDataConv1.push(respValue);
+    // }
+
+    const respDataConv1:AnyJson[] = [];
     for(const value of respJson){
       const respValue : AnyJson ={};
-      respValue["Date"] = value["Date"];
-      respValue[value["Analytes"]] = value["NoOfAnalytes"];
+      const date:string = value.Date.slice(0,10);
+      respValue["Date"]=date;
+      respValue["Analytes"] = value["Analytes"];
+      respValue["NoOfAnalytes"] = value["NoOfAnalytes"];
       respDataConv1.push(respValue);
     }
+    
+   
 
     /*
       Merge Same Days into One
@@ -315,6 +375,8 @@ const  ChinaReagConsume= () =>{
             Date:**** AnalyteName: number AnalyteName2: number2 AnalyteName3: number3 .... 
     */
 
+            // respDataConv1テーブル配列から、JSON形式のrespDataMergeDayに変換
+/*
     const respDataMergeDay: AnyJson[]= respDataConv1.map((value,index)=>{
       if(value === null) return null;
       const date:string = value.Date.slice(0,10);
@@ -347,6 +409,39 @@ const  ChinaReagConsume= () =>{
    
     console.log("1111",respDataMergeDay);
     setData(respDataMergeDay);
+*/
+
+
+
+
+    interface Result {
+      Date: string;
+      [key: string]: number | string;
+    }
+    
+    const result: Result[] = [];
+    
+    respDataConv1.forEach((row) => {
+      const existingRow = result.find((r) => r.Date === row.Date);
+      if (existingRow) {
+        existingRow[row.Analytes] = row.NoOfAnalytes;
+        allValue = {...allValue,[row.Analytes]: row.NoOfAnalytes};
+       
+      } else {
+        const newRow = {
+          Date: row.Date,
+          [row.Analytes]: row.NoOfAnalytes,
+          
+        };
+        allValue = {...allValue,...newRow};
+        result.push(newRow);
+        
+      }
+    });
+    setData(result);
+    console.log("3333",result);
+
+
 
     const num = Object.keys(allValue).length;
     const colors:string[] = getPastelColor(num);
@@ -410,7 +505,6 @@ const PowerBI = () =>
 
 
 const Home: NextPage<HomeStaticProps> = (props) => {
- 
 
    return (
     <div className={styles.container}>
@@ -421,7 +515,7 @@ const Home: NextPage<HomeStaticProps> = (props) => {
       </Head>
 
       <main className={styles.main}>
-        <Text size={60} h1 b css={{ textGradient: "180deg, $purple500 20%, $pink500 100%" }}>
+        <Text size={60} h1 b css={{ textGradient: "180deg, $purple500 20%, $pink500 100%"}}>
           Welcome to IoT system !
         </Text>
 
@@ -482,6 +576,17 @@ const Home: NextPage<HomeStaticProps> = (props) => {
 
 export const getStaticProps: GetStaticProps<HomeStaticProps> = async () => {
   console.log("Home SSG running !!!\n");
+  
+  // BLOBストレージのファイル一覧取得
+  // var azure = require('azure-storage');
+  //   var blobService = azure.createBlobService("carisxblob", 
+  //                                             "1+fxsZhM/7bVVYmHgybtXCfyB7aFIzR6nROb+4B7zdLJIQMrYU7d3wHGaQdE16hd+BE52CQLadMRophwIfQb0A==");
+  //   blobService.listBlobsSegmented("bot-resource", null, function (error:any, result:any) {
+  //       if (!error) {
+  //           console.log(result.entries);
+  //       }
+  //   });
+
   return {
     props: {
       dummy: "dummy",
