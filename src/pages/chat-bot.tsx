@@ -2,6 +2,7 @@ import React from 'react'
 import type { NextPage,GetStaticProps } from 'next'
 import {Text,Grid} from '@nextui-org/react';
 import styles from '@/styles/Home.module.css';
+import {ChatUI} from '@/component/app/ChatUI';
 
 
 type ChatBotStaticProps = {
@@ -27,8 +28,9 @@ export const ChatBot:NextPage<ChatBotStaticProps> = (props)=>{
 
             {/* <iframe src='https://webchat.botframework.com/embed/dotnetbot-bot?s=FaRy1tSDNy0.WpPB4f5c0u0RsvQa-2H9RIfAF0DeUa3SJcl1uCYB89M' 
             width="1000" height="550" ></iframe> */}
-            <iframe src='https://carisxtestbot.azurewebsites.net/' 
-            width="1200" height="640" allow="microphone *" ></iframe>
+            {/* <iframe src='https://carisxtestbot.azurewebsites.net/' 
+            width="1200" height="640" allow="microphone *" ></iframe> */}
+            <ChatUI />
             </Grid>
             </Grid.Container>
         </main>

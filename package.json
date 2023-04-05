@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@jridgewell/sourcemap-codec": "^1.4.14",
     "@next/bundle-analyzer": "^12.3.1",
     "@nextui-org/react": "^1.0.0-beta.12",
     "azure-storage": "^2.10.7",
@@ -21,6 +22,8 @@
     "next-compose-plugins": "^2.2.1",
     "next-themes": "^0.2.1",
     "npm": "^8.19.3",
+    "openai": "^3.2.1",
+    "pdfmake": "^0.2.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-map-gl": "^7.0.19",
@@ -32,6 +35,7 @@
     "@types/geojson": "^7946.0.10",
     "@types/mapbox-gl": "^2.7.7",
     "@types/node": "^18.7.18",
+    "@types/pdfmake": "^0.2.2",
     "@types/react": "^18.0.20",
     "@types/react-dom": "18.0.6",
     "@types/react-map-gl": "^6.1.3",

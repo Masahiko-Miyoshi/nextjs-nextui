@@ -4,7 +4,7 @@ import {
     Text,
     Link,
   } from '@nextui-org/react';
-  import { ReferenceLine,Legend, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+  import { Legend, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 
 export type AreaDataFormat ={
@@ -38,70 +38,8 @@ export type AreaGraphProps = {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="Time" />
+        <XAxis dataKey="time" />
         <YAxis />
-        <ReferenceLine
-          segment={[
-            {
-              x: "10:00",
-              y: 0
-            },
-            {
-              x: "12:00",
-              y: 0
-            }
-          ]}
-        
-        //  strokeDasharray="5 5"
-         stroke="yellow"
-        //  label={{
-        //    value: "this IS TEST REF.LINE",
-        //    position: "top",
-        //    fill:"blue"
-        // }}
-        />
-        <ReferenceLine
-          segment={[
-            {
-              x: "10:00",
-              y: 10
-            },
-            {
-              x: "12:00",
-              y: 10
-            }
-          ]}
-         stroke="yellow"
-        />
-         <ReferenceLine
-          segment={[
-            {
-              x: "10:00",
-              y: 0
-            },
-            {
-              x: "10:00",
-              y: 10
-            }
-          ]}
-         stroke="yellow"
-        />
-        <ReferenceLine
-          segment={[
-            {
-              x: "12:00",
-              y: 0
-            },
-            {
-              x: "12:00",
-              y: 10
-            }
-          ]}
-         stroke="yellow"
-        />
-
-
-
         <Tooltip 
         labelFormatter={function(value) {
           return `時刻: ${value}`;

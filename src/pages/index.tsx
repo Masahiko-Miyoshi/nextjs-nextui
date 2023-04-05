@@ -20,6 +20,9 @@ import {getPastelColor} from "@/styles/color";
 import { sendStatusCode } from "next/dist/server/api-utils";
 import { getCurrentUser } from "@/users/currentUser";
 import next from "next/types";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import {ChatUI} from "@/component/app/ChatUI";
 
 
 // Homeページへの引数
@@ -505,7 +508,6 @@ const PowerBI = () =>
 
 
 const Home: NextPage<HomeStaticProps> = (props) => {
-
    return (
     <div className={styles.container}>
       <Head>
@@ -555,7 +557,7 @@ const Home: NextPage<HomeStaticProps> = (props) => {
           <PowerBI />
           
         </Grid>
-
+       
       </Grid.Container>
       </main>
       <footer className={styles.footer}>
