@@ -133,7 +133,8 @@ const headerMenuProps:HeaderMenuProps[] =[
 {
   itemType: "nav",
   title: "リモート接続",
-  to:"https://login.teamviewer.com/Connect",
+   to:"https://start.teamviewer.com/ja/",
+  //to:"https://start.teamviewer.com/device/1296315314/authorization/password/mode/control",
 },
 {
   itemType: "nav",
