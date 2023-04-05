@@ -10,6 +10,13 @@ type NavCardOnMapProps = {
 }
 
 
+const handleRemoteButton = () => {
+  // Next.JSで"https://start.teamviewer.com/device/1296315314/authorization/password/mode/control"を開く
+  window.open("https://start.teamviewer.com/device/1296315314/authorization/password/mode/control", "_blank");
+}
+
+
+
 export const NavCardOnMap = (props:NavCardOnMapProps) =>{
   const {title,footerText,imageUrl,onClose} = props;
   return(
@@ -38,7 +45,7 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
             <Spacer y={0.5} />
             <Button color="warning" auto ghost> 現在発生しているエラー原因と対処方法 </Button>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost> リモート操作と通話 </Button>
+            <Button color="warning" auto ghost onPress={handleRemoteButton} > リモート操作と通話 </Button>
             <Spacer y={0.5} />
             <Button color="warning" auto ghost> 各種ログのダウンロード </Button>
             <Spacer y={0.5} />

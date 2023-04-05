@@ -331,7 +331,7 @@ const ErrorMap:NextPage<ErrorMapProps> = (props) => {
            {/* クラスター化されない病院を描画するレイヤー */}
           <Layer {...unclusteredPointLayer}  />
            {/*　ヒートマップレイヤー　AIに書いてもらいます*/}
-          <Layer {...heatLayer} />
+          {/* <Layer {...heatLayer} /> */}
          
 
         </Source>
