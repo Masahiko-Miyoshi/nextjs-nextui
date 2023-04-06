@@ -1,5 +1,4 @@
 import { useState, useEffect,useRef } from 'react';
-// import { sendMessage } from '@/pages/api/chatgpt';
 import { ChatInput } from './ChatInput';
 import  {ChatBubble}  from './ChatBubble';
 import { Loading } from "@nextui-org/react";
@@ -54,9 +53,6 @@ export const ChatUI: React.FC = () => {
       });
         
     };
-  
-    
-
     return (
         <div
             style={{
