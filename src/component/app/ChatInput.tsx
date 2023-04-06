@@ -49,6 +49,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
         onKeyPress={handleKeyPress}
         clearable
         key={inputKey}
+        aria-label="chat-input" 
       />
       <Button
         
