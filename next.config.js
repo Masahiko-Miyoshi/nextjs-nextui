@@ -5,6 +5,7 @@ const nextConfig = {
   swcMinify: true,
   basePath: process.env.GITHUB_ACTIONS ? "/nextjs-nextui" : "",
   trailingSlash: true,
+ 
   // images: {
   //   loader: 'akamai',
   //   path: '',

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card,Text,Button,Spacer,} from '@nextui-org/react';
-import { VideoSource } from 'mapbox-gl';
+import { useRouter } from 'next/router';
+
 
 type NavCardOnMapProps = {
     title:string; 
@@ -10,15 +11,25 @@ type NavCardOnMapProps = {
 }
 
 
-const handleRemoteButton = () => {
-  // Next.JSで"https://start.teamviewer.com/device/1296315314/authorization/password/mode/control"を開く
-  window.open("https://start.teamviewer.com/device/1296315314/authorization/password/mode/control", "_blank");
-}
-
 
 
 export const NavCardOnMap = (props:NavCardOnMapProps) =>{
   const {title,footerText,imageUrl,onClose} = props;
+
+  const router = useRouter();
+  const handleRemoteButton = () => {
+    // window.open("https://start.teamviewer.com/device/1296315314/authorization/password/mode/control", "_blank");
+    window.open("https://start.teamviewer.com", "_blank");
+  }
+  
+  
+  const handleChatBotButton = () => {
+    console.log("AAAAAA");
+    router.push("/chat-bot");
+  }
+  
+  
+
   return(
       <>
         <Card variant = "bordered" css={{ tm: "0px", mw: "800px", width:"400px", height:"100%" }}>
@@ -43,7 +54,7 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
             // alt={title}
             ></Card.Image>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost> 現在発生しているエラー原因と対処方法 </Button>
+            <Button color="warning" auto ghost onPress={handleChatBotButton}> 現在発生しているエラー原因と対処方法 </Button>
             <Spacer y={0.5} />
             <Button color="warning" auto ghost onPress={handleRemoteButton} > リモート操作と通話 </Button>
             <Spacer y={0.5} />

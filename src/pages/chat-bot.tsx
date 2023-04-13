@@ -9,31 +9,47 @@ type ChatBotStaticProps = {
     dummy:string;
 }
 
-
 export const ChatBot:NextPage<ChatBotStaticProps> = (props)=>{
     return(
       <div className={styles.container}>
+        <video
+        className={styles.bot_backgroundVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{ width: '100%', height: '100%' }}
+        crossOrigin="anonymous" // 追加
+       
+        onLoadedData={(e) => {
+          (e.target as HTMLVideoElement).play(); // 型アサーションを追加
+        }}
+        >  
+        <source
+          src="https://carisxblob.blob.core.windows.net/bot-resource/_import_61b58c54b465f9.62502902_FPpreview.mp4"
+          type="video/mp4"
+        />
+        </video>
+ 
+        <div className={styles.bot_mainWrapper}> {/* この行が追加されました */}
         <main className={styles.main}>
           <Grid.Container
           // gap={2}
           justify="center"
           alignItems="center"
+          
           css={{ maxW:2000, marginTop:0 }}
           >
             <Text 
               h2
               css={{ textGradient: "180deg, $purple500 20%, $pink500 100%" }}
-            > チャットボット</Text>
+            > FR13 Chat Bot</Text>
             <Grid xs={12} md={12} justify="center">
-
-            {/* <iframe src='https://webchat.botframework.com/embed/dotnetbot-bot?s=FaRy1tSDNy0.WpPB4f5c0u0RsvQa-2H9RIfAF0DeUa3SJcl1uCYB89M' 
-            width="1000" height="550" ></iframe> */}
-            {/* <iframe src='https://carisxtestbot.azurewebsites.net/' 
-            width="1200" height="640" allow="microphone *" ></iframe> */}
             <ChatUI />
             </Grid>
             </Grid.Container>
         </main>
+        </div>
       </div>
     )
 

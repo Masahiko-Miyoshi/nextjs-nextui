@@ -37,7 +37,8 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ sender, content }) => {
           fontSize: "1.2rem",
         }}
       >
-        {content}
+          <p style={{ whiteSpace: 'pre-line', fontSize: "1.2rem"}}>{content}</p>
+        {/* {content} */}
       </div>
       {sender && (
         <Avatar color="secondary" text="User" size="xl"  style={{ color: "white",  marginLeft: "0.5rem" }}/>
