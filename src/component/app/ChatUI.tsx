@@ -90,7 +90,7 @@ export const ChatUI: React.FC = () => {
           ))}
           {isLoading && (
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Loading size="xl" />
+              <Loading size="xl" color={"warning"}/>
             </div>
           )}
           <div ref={messagesEndRef} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card,Text,Button,Spacer,} from '@nextui-org/react';
 import { useRouter } from 'next/router';
+import confetti from 'canvas-confetti';
 
 
 type NavCardOnMapProps = {
@@ -18,13 +19,15 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
 
   const router = useRouter();
   const handleRemoteButton = () => {
+    confetti();
     // window.open("https://start.teamviewer.com/device/1296315314/authorization/password/mode/control", "_blank");
     window.open("https://start.teamviewer.com", "_blank");
   }
   
   
   const handleChatBotButton = () => {
-    console.log("AAAAAA");
+    // console.log("AAAAAA");
+    confetti()
     router.push("/chat-bot");
   }
   
@@ -32,7 +35,7 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
 
   return(
       <>
-        <Card variant = "bordered" css={{ tm: "0px", mw: "800px", width:"400px", height:"100%" }}>
+        <Card variant = "bordered" css={{ tm: "0px", mw: "800px", width:"400px", height:"100%", zIndex:1 }}>
           <Card.Header>
             {/* <Text  b size = {20} color="secondary" 
             css={{color:"white"}}> {title}</Text> */}
@@ -54,9 +57,9 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
             // alt={title}
             ></Card.Image>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost onPress={handleChatBotButton}> 現在発生しているエラー原因と対処方法 </Button>
+            <Button color="warning" auto ghost onClick={handleChatBotButton}> 現在発生しているエラー原因と対処方法 </Button>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost onPress={handleRemoteButton} > リモート操作と通話 </Button>
+            <Button color="warning" auto ghost onClick={handleRemoteButton} > リモート操作と通話 </Button>
             <Spacer y={0.5} />
             <Button color="warning" auto ghost> 各種ログのダウンロード </Button>
             <Spacer y={0.5} />
@@ -77,7 +80,7 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
             <Text size="12px" > {footerText} </Text>
           </Card.Footer>
         </Card>
-    </>        
+    </>
   )
 }
 
