@@ -13,7 +13,7 @@ type Message = {
 export const ChatUI: React.FC = () => {
     // const [messages, setMessages] = useState<Message[]>([]);
     const [messages, setMessages] = 
-    useState<Message[]>([{sender: "bot", content:"こんにちは、私は優秀な臨床検査スペシャリストFR13ボットです。質問してください。"}]);
+    useState<Message[]>([{sender: "bot", content:"こんにちは、私は臨床検査スペシャリストです。質問してください。"}]);
     
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -30,16 +30,15 @@ export const ChatUI: React.FC = () => {
         ...prevMessages,
         { sender: "user", content: message },
       ]);
-      if(message[message.length-1] !== "。" && message[message.length-1] !== "？" && message[message.length-1] !== "！"){
-        message = message + "。";
-      }
-      // const response = await sendMessage(message);
+      // if(message[message.length-1] !== "。" && message[message.length-1] !== "？" && message[message.length-1] !== "！"){
+      //   message = message + "。";
+      // }
       fetch('/api/chatgpt', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ chat: message })
+        body: JSON.stringify({ chat: message+"。" })
       })
       .then(response => response.json())
       .then(data => {
