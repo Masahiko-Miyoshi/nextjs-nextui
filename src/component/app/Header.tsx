@@ -38,14 +38,11 @@ const handleSensorMonitor = () =>{
   Router.push("process-monitor");
 }
 
-const handleExternalQC = () =>{
+const handleExAndInQC = () =>{
   
 }
 
 
-const handleInternalQC = () =>{
-  
-}
 
 const handleReagentConsumption = () =>{
     
@@ -56,6 +53,18 @@ const handleAboutError = () =>{
   }
   
  const handleConcDistribution = () =>{
+
+  }
+
+  const handlePatientData = () =>{
+
+  }
+
+  const handleCalibrationData = () =>{
+
+  }
+
+  const handleQC = () =>{
 
   }
 
@@ -129,23 +138,42 @@ const headerMenuProps:HeaderMenuProps[] =[
       func: handleSensorMonitor,
       icon: icons.server,
     },
-    {
-      key: "ExternalQC",
-      title: "外部QC",
-      discription: "外部QCを確認できます",
-      func: handleExternalQC,
-      icon: icons.server,
-    },
-    {
-      key: "InternalQC",
-      title: "内部QC",
-      discription: "内部QCを確認できます",
-      func: handleInternalQC,
-      icon: icons.server,
-    },
+  ]
+},
 
+{
+  itemType: "dropdown",
+  title: "測定データ",
+  childrenItem: [
+    {
+      key: "PatientData",
+      title: "検体データ",
+      discription: "検体の測定結果を確認できます",
+      func: handlePatientData,
+      icon:icons.user,
+    },
+    {
+      key: "CalibrationData",
+      title: "キャリブレーションデータ",
+      discription: "キャリブレーションデータを確認できます",
+      func: handleCalibrationData,
+      icon: icons.server,
+    },
+    {
+      key: "QC",
+      title: "QC",
+      discription: "内部QC、外部QCを確認できます",
+      func: handleQC,
+      icon: icons.server,
+    }, 
   ]
 
+},
+
+{
+  itemType: "nav",
+  title: "試薬、消耗品",
+  to:"reagent-consumption",
 },
 
 {

@@ -1,8 +1,9 @@
 import React,{Key} from "react";
-import { Grid,Navbar, Text, Switch, Dropdown } from "@nextui-org/react";
+import { Grid,Navbar, Text, Switch, Dropdown, Button } from "@nextui-org/react";
 import { useTheme as useNextTheme } from 'next-themes';
 import { useTheme } from '@nextui-org/react';
 import {Logo} from '@/component/common/Logo';
+import {DropdownButton} from '@/component/common/DropButton';
 import NextLink from 'next/link'
 import confetti from 'canvas-confetti';
 
@@ -137,6 +138,7 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
     }
   else if(item.itemType==="dropdown"){
     return(
+      
       <Dropdown isBordered>
         <Navbar.Item  >
           <Dropdown.Button
@@ -158,6 +160,7 @@ const NavbarItem:React.FC<NavbarItemProps> = (props) =>{
         
         <DropdownChildItem item ={item}/>
       </Dropdown>
+      
     )
   }
   else{
@@ -208,8 +211,9 @@ export const HeaderMenu :React.FC<Props> = (props) =>{
        </Grid.Container>
         
       </Navbar.Brand>
-      <Navbar.Content   enableCursorHighlight activeColor="secondary" hideIn="xs" variant="highlight-rounded">
-           
+      {/* <Navbar.Content   enableCursorHighlight activeColor="secondary" hideIn="xs" variant="highlight"> */}
+      <Navbar.Content   enableCursorHighlight activeColor="secondary" hideIn="xs" variant="underline">
+    
         {props.headerMenuProps.map((item,index) =>{
             return <NavbarItem  key={index}  item={item} isDark={isDark} />
          })

@@ -2,6 +2,7 @@ import React from 'react';
 import {Card,Text,Button,Spacer,} from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import confetti from 'canvas-confetti';
+import {DropdownButton} from '@/component/common/DropButton';
 
 
 type NavCardOnMapProps = {
@@ -12,6 +13,18 @@ type NavCardOnMapProps = {
 }
 
 
+interface MenuItem {
+  key: string;
+  label: string;
+  func: ()=>void
+}
+
+const menuItems:MenuItem[] = [
+  {key: "new", label: "New File", func:()=>{console.log("new")}}, 
+  { key: "copy", label: "Copy Link", func:()=>{console.log("copy")}},
+  { key: "edit", label: "Edit File", func:()=>{console.log("edit")}},
+  { key: "delete", label: "Delete File", func:()=>{console.log("delete")}},
+];
 
 
 export const NavCardOnMap = (props:NavCardOnMapProps) =>{
@@ -57,7 +70,26 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
             // alt={title}
             ></Card.Image>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost onClick={handleChatBotButton}> 現在発生しているエラー原因と対処方法 </Button>
+            {/* <DropButton
+              title="Actions"
+              items=[
+                {
+                  key: "Action 1",
+                  handler: () => {
+                    console.log("You clicked on Action 1");
+                  },
+                },
+                {
+                  key: "Action 2",
+                  handler: () => {
+                    console.log("You clicked on Action 2");
+                  },
+                },
+              ]
+            /> */}
+            <Button color="warning" auto ghost onClick={handleChatBotButton}> 当該エラーのトレンド </Button>           
+            <Spacer y={0.5} />
+            <Button color="warning" auto ghost> 当該エラーの原因と対処方法  </Button>
             <Spacer y={0.5} />
             <Button color="warning" auto ghost onClick={handleRemoteButton} > リモート操作と通話 </Button>
             <Spacer y={0.5} />
@@ -65,13 +97,14 @@ export const NavCardOnMap = (props:NavCardOnMapProps) =>{
             <Spacer y={0.5} />
             <Button color="warning" auto ghost> プロセスモニター </Button>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost> 外部QC </Button>
+            <Button color="warning" auto ghost> センサーモニター </Button>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost> 測定結果 </Button>
+            <Button color="warning" auto ghost> 測定データ </Button>
             <Spacer y={0.5} />
-            <Button color="warning" auto ghost> 試薬消費量（予測） </Button>
+            <Button color="warning" auto ghost> 試薬、消費品</Button>
             <Spacer y={0.5} />
             <Button color="warning" auto ghost> 過去の故障状況 </Button>
+          
           </Card.Body>
 
           <Card.Footer>
