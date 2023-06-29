@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 export const sendMessage = async (chat: GPTMessage[]) => {
 const completion = await openai.createChatCompletion({
   model: "gpt-3.5-turbo",
-  // model: "gpt-4",
+  // model: "gpt-4-0613",
   temperature:0.7, // Default:0.7 
   max_tokens:1000,
   messages: chat,

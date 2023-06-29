@@ -2,7 +2,7 @@ import { useState, useEffect,useRef } from 'react';
 import { ChatInput } from './ChatInput';
 import  {ChatBubble}  from './ChatBubble';
 import { Loading } from "@nextui-org/react";
-import type  {GPTMessage}  from '@/pages/api/chatgpt';import { toASCII } from 'punycode';
+import type  {GPTMessage}  from '@/pages/api/chatgpt';
 ;
 
 
@@ -37,6 +37,7 @@ export const ChatUI: React.FC = () => {
         // 会話履歴をコピーし、新しいユーザーメッセージを追加
       // const updatedMessages = [{ sender: "system", content: "あなたはドラえもんです。ドラえもんの口調で回答してください。第一人称は、ぼくです。" }, 
       const updatedMessages = [{ sender: "system", content: "あなたは簡潔に回答する優秀なアシスタントです" }, 
+                              //  { sender: "user", content: message },];
                               ...messages, { sender: "user", content: message },];
 
       // 会話履歴をAPIに渡すために、オブジェクトのプロパティ名を変更（senderからroleへ）

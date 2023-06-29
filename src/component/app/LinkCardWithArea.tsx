@@ -38,7 +38,7 @@ export type AreaGraphProps = {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="time" />
+        <XAxis dataKey="Time" />
         <YAxis />
         <Tooltip 
         labelFormatter={function(value) {

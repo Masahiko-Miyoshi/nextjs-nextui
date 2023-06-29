@@ -64,9 +64,56 @@ const handleAboutError = () =>{
 
   }
 
+  
   const handleQC = () =>{
 
   }
+
+  const handleUserSetting = () =>{
+
+  }
+
+  const handleVendorGroupSetting = () =>{
+      
+  }
+
+  const handleCustomerGroupSetting = () =>{
+
+  }
+
+  const handleModelSetting = () =>{  
+
+  } 
+
+  const handleDeviceSetting = () =>{
+      
+   }
+
+   const handleRemoteControl = () =>{
+    window.open("https://start.teamviewer.com/ja/","_blank");
+   }
+
+   const handleProtocolParameter = () =>{
+      
+   }
+
+   const handleProgram = () =>{
+      
+   }
+
+   const handleDeviceLogDownload = () =>{
+      
+   }
+
+   const handleSystemLogDownload = () =>{
+      
+   }
+
+
+      
+  
+
+
 
 
 const headerMenuProps:HeaderMenuProps[] =[
@@ -209,16 +256,97 @@ const headerMenuProps:HeaderMenuProps[] =[
   title: "ボット",
   to:"chat-bot",
 },
+// {
+//   itemType: "nav",
+//   title: "リモート接続",
+//    to:"https://start.teamviewer.com/ja/",
+//   // to:"https://start.teamviewer.com/device/1296315314/authorization/password/mode/control",
+// },
+
 {
-  itemType: "nav",
-  title: "リモート接続",
-   to:"https://start.teamviewer.com/ja/",
-  // to:"https://start.teamviewer.com/device/1296315314/authorization/password/mode/control",
+  itemType: "dropdown",
+  title:"ユーティリティ",
+  childrenItem: [
+    {
+      key: "RemoteControl",
+      title: "リモート接続",
+      discription: "機器にリモート接続します",
+      func: handleRemoteControl,
+      icon:icons.user,
+    },
+    {
+      key: "ProtocolParameter",
+      title: "項目パラメータ",
+      discription: "項目パラメータのアップロード、ダウンロードができます",
+      func: handleProtocolParameter,
+      icon: icons.server,
+    },
+    {
+      key: "Program",
+      title: "プログラム",
+      discription: "プログラムのアップロード、ダウンロードができます",
+      func: handleProgram,
+      icon: icons.server,
+    },
+    {
+      key: "DeviceLogDownload",
+      title: "機器ログダウンロード",
+      discription: "機器ログのダウンロードができます",
+      func: handleDeviceLogDownload,
+      icon: icons.server,
+    },
+    {
+      key: "SytemLogDownload",
+      title: "システムログダウンロード",
+      discription: "システムログのダウンロードができます",
+      func: handleSystemLogDownload,
+      icon: icons.server,
+    },
+    
+  ]
 },
+
+
 {
-  itemType: "nav",
-  title: "設定",
-  to:"setting",
+  itemType: "dropdown",
+  title:"設定",
+  childrenItem: [
+    {
+      key: "UserSetting",
+      title: "ユーザー",
+      discription: "ユーザーの追加、編集、削除ができます",
+      func: handleUserSetting,
+      icon:icons.user,
+    },
+    {
+      key: "VendorGroupSetting",
+      title: "ベンダーグループ",
+      discription: "ベンダーの追加、編集、削除ができます",
+      func: handleVendorGroupSetting,
+      icon: icons.server,
+    },
+    {
+      key: "CustomerGroupSetting",
+      title: "カスタマーグループ",
+      discription: "カスタマーグループの追加、編集、削除ができます",
+      func: handleCustomerGroupSetting,
+      icon: icons.server,
+    },
+    {
+      key:"ModelSetting",
+      title: "モデル",
+      discription: "モデルの追加、編集、削除ができます",
+      func: handleModelSetting,
+      icon: icons.server,
+    },
+    {
+      key:"DeviceSetting",
+      title: "機器",
+      discription: "機器の追加、編集、削除ができます",
+      func: handleDeviceSetting,
+      icon: icons.server,
+    },
+  ]
 },
 
 
