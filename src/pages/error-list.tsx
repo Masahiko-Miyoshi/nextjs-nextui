@@ -23,10 +23,11 @@ type ErrorInfo = {
 export const ErrorList:NextPage<ErrorListStaticProps> = (props)=>{
 
 
+
   const columns = [
     {
       key: "dateTime",
-      label: "日時",
+      label: "日時2",
     },
     {
       key: "name",
