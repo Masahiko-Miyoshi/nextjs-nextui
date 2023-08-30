@@ -43,7 +43,7 @@ export const ChatBot:NextPage<ChatBotStaticProps> = (props)=>{
             <Text 
               h2
               css={{ textGradient: "180deg, $purple500 20%, $pink500 100%" }}
-            > FR13 Chat Bot</Text>
+            > My assistant</Text>
             <Grid xs={12} md={12} justify="center">
             <ChatUI />
             </Grid>
