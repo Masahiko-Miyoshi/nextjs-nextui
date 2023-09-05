@@ -16,7 +16,7 @@ export const ChatUI: React.FC = () => {
     const maxTokens = 4096;
     let totalTokens=0;
     const [messages, setMessages] = 
-    useState<Message[]>([{sender: "assistant", content:"こんにちは、私は臨床検査スペシャリストです。質問してください。"}]);
+    useState<Message[]>([{sender: "assistant", content:"こんにちは、私は臨床検査スペシャリストです、質問してください。"}]);
     
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
