@@ -62,7 +62,7 @@ export const useHeaderScroll = (): boolean => {
     UHS_mouseEventCounter = 0;
     console.log("Add linstener !!!");
     window.addEventListener('scroll', scrollWindow);
-    const UHS_intervalId:NodeJS.Timer = setInterval(()=>
+    const UHS_intervalId = setInterval(()=>
       {UHS_mouseEvent=UHS_mouseEventCounter;
        UHS_mouseEventCounter=0;
       },
@@ -70,7 +70,9 @@ export const useHeaderScroll = (): boolean => {
     return () => {
       console.log("Remove linstener !!!");
       window.removeEventListener('scroll', scrollWindow);
-      clearInterval(UHS_intervalId);
+      if (typeof window !== 'undefined') {
+      clearInterval(UHS_intervalId );
+      }
     };
   },[isHeaderActive]);
   

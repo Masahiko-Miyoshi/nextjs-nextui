@@ -88,12 +88,14 @@ const CurerntTests = () =>{
 
 
   useEffect(()=>{
-    const intervalId:NodeJS.Timer = setInterval(()=>
+    const intervalId = setInterval(()=>
       {
           fetchData();
       }, 1000);
     return ()=>{
-      clearInterval(intervalId);
+      if (typeof window !== 'undefined') {
+        clearInterval(intervalId);
+      }
     } 
   },
   []);
@@ -173,12 +175,15 @@ const CurerntError = () =>{
 
 
   useEffect(()=>{
-    const intervalId:NodeJS.Timer = setInterval(()=>
+    const intervalId = setInterval(()=>
       {
           fetchData();
       }, 1000);
     return ()=>{
-      clearInterval(intervalId);
+      
+      if (typeof window !== 'undefined') {
+        clearInterval(intervalId);
+      }
     } 
   },
   []);
@@ -315,7 +320,7 @@ const  ChinaReagConsume= () =>{
 
 
   useEffect(()=>{
-    const intervalId:NodeJS.Timer = setInterval(()=>
+    const intervalId = setInterval(()=>
       {
         console.log("Parent:",udpateGraph);
         if(udpateGraph){
@@ -324,7 +329,9 @@ const  ChinaReagConsume= () =>{
         
     }, 1000);
     return ()=>{
-      clearInterval(intervalId);
+      if (typeof window !== 'undefined') {
+        clearInterval(intervalId);
+      }
     } 
   },
   [udpateGraph]);
